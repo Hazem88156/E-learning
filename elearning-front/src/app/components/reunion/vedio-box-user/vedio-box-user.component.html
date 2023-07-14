@@ -1,0 +1,31 @@
+<div class="card text-white bg-dark mb-3" style="width: 50%">
+  <div class="card-body" style="padding: 0">
+    <video
+      width="50%"
+      height="50"
+      [srcObject]="userVideo.srcObject"
+      (loadedmetadata)="onLoadedMetadata($event)"
+      [muted]="userVideo.muted"
+    ></video>
+  </div>
+  <div style="padding: 0">
+    <span class="text-truncate span-inline-block"> </span>
+    <span style="float: right; color: white">
+      <i
+        style="color: aliceblue"
+        class="bi"
+        [ngClass]="
+          enableCamera
+            ? ['bi bi-camera-video-fill']
+            : ['bi-camera-video-off-fill']
+        "
+      ></i
+      ><span>hhhhhhhhh</span>
+      <i
+        style="color: aliceblue"
+        class="fas"
+        [ngClass]="enableMicro ? ['bi bi-mic-fill'] : ['bi bi-mic-mute-fill']"
+      ></i>
+    </span>
+  </div>
+</div>

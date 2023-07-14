@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Favicons -->
+
+    <!-- Template Main CSS File -->
+
+    <!-- =======================================================
+  * Template Name: NiceAdmin - v2.2.2
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  </head>
+
+  <body>
+    <!-- ======= Header ======= -->
+    <app-header></app-header>
+
+    <!-- ======= Sidebar ======= -->
+    <app-sidbar-professeur></app-sidbar-professeur>
+    <!-- End Sidebar-->
+
+    <main id="main" class="main">
+      <div class="pagetitle">
+        <h1>Ajouter un document PDF</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="['/dashboradadmin']">Accueil</a>
+            </li>
+            <li class="breadcrumb-item active">Ajouter un document PDF</li>
+          </ol>
+        </nav>
+      </div>
+      <!-- End Page Title -->
+
+      <section class="section profile">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="card">
+              <div class="card-body pt-3">
+                <!-- Bordered Tabs -->
+
+                <div class="tab-content pt-2">
+                  <!-- Profile Edit Form -->
+                  <form
+                    [formGroup]="reactiveForm"
+                    (ngSubmit)="saveForm(reactiveForm)"
+                  >
+                    <div class="row mb-3">
+                      <label
+                        for="Linkedin"
+                        class="col-md-4 col-lg-3 col-form-label"
+                        >Document</label
+                      >
+                      <div class="col-md-8 col-lg-6">
+                        <input
+                          name="linkedin"
+                          type="text"
+                          class="form-control"
+                          formControlName="documentName"
+                        />
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label
+                        for="Linkedin"
+                        class="col-md-4 col-lg-3 col-form-label"
+                        >Cours</label
+                      >
+                      <div class="col-md-8 col-lg-6">
+                        <select id="pet-select" required formControlName="cour">
+                          <option value="" style="font-size: 12px">
+                            Sélectionnner votre cours
+                          </option>
+                          <option
+                            value="{{ cour.id }}"
+                            *ngFor="let cour of cours"
+                          >
+                            <td>{{ cour.nomCours }}</td>
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col-md-4 col-lg-3">
+                        <label class="form-control-label">Document PDF</label>
+                      </div>
+                      <div class="col-md-8 col-lg-9">
+                        <input
+                          type="file"
+                          class="btn btn-primary btn-sm"
+                          accept="document/*"
+                          (change)="onSelectFile($event)"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">
+                        <i
+                          class="bi bi-file-pdf"
+                          style="color: rgb(255, 255, 255)"
+                        ></i>
+                        Ajouter
+                      </button>
+                    </div>
+                  </form>
+                  <!-- End Profile Edit Form -->
+                </div>
+
+                <!-- End Change Password Form -->
+              </div>
+            </div>
+            <!-- End Bordered Tabs -->
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <app-footer></app-footer>
+    <!-- End Footer -->
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Vendor JS Files -->
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

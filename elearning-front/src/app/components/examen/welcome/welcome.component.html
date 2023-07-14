@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Favicons -->
+
+    <!-- Template Main CSS File -->
+
+    <!-- =======================================================
+  * Template Name: NiceAdmin - v2.2.2
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  </head>
+
+  <body>
+    <app-header></app-header>
+
+    <!-- ======= Sidebar ======= -->
+    <app-sidbar-professeur></app-sidbar-professeur>
+    <!-- End Sidebar-->
+
+    <main id="main" class="main">
+      <div class="pagetitle">
+        <h1>Bienvenue Examen</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="['/dashboradadmin']">Accueil</a>
+            </li>
+            <li class="breadcrumb-item active">Bienvenue Examen</li>
+          </ol>
+        </nav>
+      </div>
+      <!-- End Page Title -->
+      <section class="section profile">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="card">
+              <div class="card-body pt-3">
+                <!-- Bordered Tabs -->
+
+                <div class="tab-content pt-2">
+                  <div class="container bg-light py-5">
+                    <h1
+                      class="display-5 fw-bold"
+                      style="color: rgba(1, 41, 112, 0.6)"
+                    >
+                      Bienvenue {{ firstName }} dans l'examen {{ examenName }}
+                    </h1>
+                    <p class="col-md-8 fs-4">
+                      Ce examen contiendra un total de {{ len }} questions.
+                      Chaque question contient 10 points
+                    </p>
+                    <h4 style="color: rgba(1, 41, 112, 0.6)">Règles:</h4>
+                    <ol>
+                      <li>La bonne question vous donne 10 points</li>
+                      <li>La question incorrecte donne -10 points</li>
+                      <li>
+                        Vous aurez 60 secondes pour répondre à chaque question
+                      </li>
+                      <li>La référence à la page réinitialisera l'examen</li>
+                    </ol>
+                    <h1
+                      style="
+                        font-family: cursive;
+                        text-align: center;
+                        color: red;
+                      "
+                    >
+                      Tous mes vœux!!
+                    </h1>
+                    <div class="name col-md-4 my-3">
+                      <label for="">Classe:</label> <strong>{{ classe }}</strong
+                      ><br />
+                      <label for="">Nom: </label><strong>{{ firstName }}</strong
+                      ><br />
+                      <label for="">Prenom: </label
+                      ><strong>{{ lastName }}</strong>
+                    </div>
+                    <button
+                      class="btn btn-success btn-sm"
+                      (click)="PassExamen()"
+                    >
+                      Lancez l'examen !!
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- End Bordered Tabs -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

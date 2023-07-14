@@ -1,0 +1,14 @@
+table {
+  font-size: 12px;
+}
+thead {
+  color: darkorchid;
+}
+
+tr:nth-child(odd) {
+  background-color: rgba(164, 211, 255, 0.6);
+}
+th {
+  background-color: rgb(2, 2, 129);
+  color: azure;
+}

@@ -1,0 +1,203 @@
+<div class="row">
+  <div class="col-12">
+    <div>
+      <nav class="nav nav-pills nav-fill">
+        <!--<a class="nav-link" (click)="StartRecord()" *ngIf="isRecorded">
+          <i
+            class="fas"
+            [ngClass]="isStopRecord ? ['fa-stop'] : ['fa-record-vinyl red']"
+          ></i>
+          {{ textStopRecord }}
+        </a>-->
+        <a class="nav-link" (click)="enableOrDisableAudio()">
+          <i
+            class="bi"
+            [ngClass]="enableAudio ? ['bi bi-mic-fill'] : [' bi-mic-mute-fill']"
+          ></i>
+          <!-- fa-microphone -->
+        </a>
+        <a class="nav-link" (click)="enableOrDisableVideo()">
+          <i
+            class="bi"
+            [ngClass]="
+              enableVideo
+                ? ['bi bi-camera-video-fill']
+                : ['bi bi-camera-video-off-fill']
+            "
+          ></i>
+          <!-- fa-video-slash -->
+        </a>
+        <a class="nav-link">
+          <button
+            type="button"
+            [disabled]="!enableShareScreen"
+            class="btn btn-primary btn-sm"
+            (click)="shareScreen()"
+          >
+            Share screen
+          </button>
+        </a>
+        <!-- disabled -->
+      </nav>
+    </div>
+  </div>
+</div>
+<div class="row mt-1">
+  <div class="col-md-7">
+    <div [ngSwitch]="statusScreen">
+      <!-- the same view can be shown in more than one case -->
+      <!-- SHARESCREEN -->
+      <div
+        style="position: relative"
+        id="share-screen"
+        *ngSwitchCase="'SHARESCREEN'"
+      >
+        <video
+          [srcObject]="shareScreenStream"
+          (loadedmetadata)="onLoadedMetadata($event)"
+          muted
+        ></video>
+        <span class="label badge bg-danger" *ngIf="userIsSharing">{{
+          userIsSharing
+        }}</span>
+      </div>
+
+      <div id="share-screen" *ngSwitchCase="'ONESCREEN'">
+        <div class="row">
+          <div class="col-12"></div>
+        </div>
+      </div>
+
+      <div id="two-screen" *ngSwitchCase="'TWOSCREEN'">
+        <div class="row">
+          <div class="col-12"></div>
+          <div class="col-12"></div>
+        </div>
+      </div>
+
+      <div id="three-screen" *ngSwitchCase="'THREESCREEN'">
+        <div class="row">
+          <div class="col-md-12"></div>
+          <div class="col-md-6"></div>
+          <div class="col-md-6"></div>
+        </div>
+      </div>
+
+      <div id="fourth-screen" *ngSwitchCase="'FOURTHSCREEN'">
+        <div class="row">
+          <div class="col-md-6">
+            <app-video-box-user></app-video-box-user>
+          </div>
+          <div class="col-md-6"></div>
+          <div class="col-md-6"></div>
+          <div class="col-md-6"></div>
+        </div>
+      </div>
+      <!--default case when there are no matches -->
+      <div *ngSwitchDefault>
+        <div class="row">
+          <div class="col-3"></div>
+
+          <video
+            style="
+              width: 500px;
+              height: 500px;
+              border: solid blue 8px;
+              border-radius: 8px;
+            "
+            [srcObject]="shareScreenStream"
+            (loadedmetadata)="onLoadedMetadata($event)"
+            muted
+          ></video>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div style="height: 100%">
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            id="pills-home-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#pills-home"
+            type="button"
+            role="tab"
+            aria-controls="pills-home"
+            aria-selected="true"
+          >
+            Participants
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="pills-profile-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#pills-profile"
+            type="button"
+            role="tab"
+            aria-controls="pills-profile"
+            aria-selected="false"
+          >
+            Messanger
+          </button>
+        </li>
+      </ul>
+      <div class="tab-content" id="pills-tabContent">
+        <div
+          class="tab-pane fade show active"
+          id="pills-home"
+          role="tabpanel"
+          aria-labelledby="pills-home-tab"
+        >
+          <ng-template tabHeading>
+            <span
+              class="badge badge-secondary bg-secondary"
+              *ngIf="videos.length > maxUserDisplay"
+              >{{ videos.length }}</span
+            >
+          </ng-template>
+
+          <div class="row" style="max-height: 430px; overflow-y: scroll">
+            <div class="col-6" *ngFor="let user of tempvideos">
+              <app-video-box-user [userVideo]="user"></app-video-box-user>
+            </div>
+
+            <div class="col-12" *ngIf="videos.length > maxUserDisplay">
+              <div class="text-center">
+                <div class="box text-secondary" style="font-size: x-large">
+                  +{{ videos.length - maxUserDisplay }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- local video of current user -->
+          <div class="row mt-1 justify-content-center">
+            <div class="col-8">
+              <div class="card text-white bg-dark mb-3">
+                <div class="card-body" style="padding: 0">
+                  <div class="card-body" style="padding: 5">
+                    <video
+                      #localVedio
+                      autoplay
+                      width="95%"
+                      height="40%"
+                    ></video>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="pills-profile"
+          role="tabpanel"
+          aria-labelledby="pills-profile-tab"
+        ></div>
+      </div>
+    </div>
+  </div>
+</div>

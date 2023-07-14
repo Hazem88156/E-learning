@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>Pages / Register - NiceAdmin Bootstrap Template</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon" />
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+
+    <!-- Vendor CSS Files -->
+
+    <!-- =======================================================
+  * Template Name: NiceAdmin - v2.2.2
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  </head>
+
+  <body>
+    <main>
+      <div class="container">
+        <section
+          class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4"
+        >
+          <div class="container">
+            <div class="row justify-content-center">
+              <div
+                class="col-lg-8 col-md-10 d-flex flex-column align-items-center justify-content-center"
+              >
+                <div class="d-flex justify-content-center py-4">
+                  <a class="logo d-flex align-items-center w-auto">
+                    <img src="assets/img/logo.png" alt="" />
+                    <span class="d-none d-lg-block">Elearning</span>
+                  </a>
+                </div>
+                <!-- End Logo -->
+
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <div class="pt-4 pb-2">
+                      <h5 class="card-title text-center pb-0 fs-4">
+                        Créer un compte admin
+                      </h5>
+                      <p class="text-center small">
+                        Entrez vos informations personnelles pour créer un
+                        compte
+                      </p>
+                    </div>
+
+                    <form
+                      novalidate
+                      class="row"
+                      [formGroup]="reactiveForm"
+                      (ngSubmit)="saveForm(reactiveForm)"
+                    >
+                      <div class="col-6">
+                        <label for="yourName" class="form-label"
+                          >Votre nom</label
+                        >
+                        <input
+                          type="text"
+                          name="name"
+                          class="form-control"
+                          id="firstName"
+                          required
+                          formControlName="firstName"
+                          [ngClass]="{
+                            'is-invalid': submitted && f.firstName.errors
+                          }"
+                        />
+                        <div
+                          *ngIf="submitted && f.firstName.errors"
+                          class="invalid-feedback"
+                        >
+                          <div
+                            *ngIf="f.firstName.errors.required"
+                            style="text-align: center"
+                          >
+                            champ obligatoire
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-6">
+                        <label for="lastName" class="form-label"
+                          >Votre prenom</label
+                        >
+                        <input
+                          type="text"
+                          name="lastName"
+                          class="form-control"
+                          id="lastName"
+                          required
+                          formControlName="lastName"
+                          [ngClass]="{
+                            'is-invalid': submitted && f.lastName.errors
+                          }"
+                        />
+                        <div
+                          *ngIf="submitted && f.lastName.errors"
+                          class="invalid-feedback"
+                        >
+                          <div
+                            *ngIf="f.lastName.errors.required"
+                            style="text-align: center"
+                          >
+                            champ obligatoire
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label for="yourEmail" class="form-label">N°cin</label>
+                        <input
+                          type="text"
+                          name="ncin"
+                          class="form-control"
+                          id="ncin"
+                          required
+                          formControlName="ncin"
+                          [ngClass]="{
+                            'is-invalid': submitted && f.ncin.errors
+                          }"
+                        />
+                        <div
+                          *ngIf="submitted && f.ncin.errors"
+                          class="invalid-feedback"
+                        >
+                          <div
+                            *ngIf="f.ncin.errors.required"
+                            style="text-align: center"
+                          >
+                            champ obligatoire
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <label for="yourEmail" class="form-label"
+                          >Telephone</label
+                        >
+                        <input
+                          type="text"
+                          name="telephone"
+                          class="form-control"
+                          id="ncin"
+                          required
+                          formControlName="telephone"
+                          [ngClass]="{
+                            'is-invalid': submitted && f.telephone.errors
+                          }"
+                        />
+                        <div
+                          *ngIf="submitted && f.telephone.errors"
+                          class="invalid-feedback"
+                        >
+                          <div
+                            *ngIf="f.telephone.errors.required"
+                            style="text-align: center"
+                          >
+                            champ obligatoire
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-12">
+                        <label for="yourUsername" class="form-label"
+                          >Votre e-mail</label
+                        >
+                        <div class="input-group has-validation">
+                          <span class="input-group-text" id="inputGroupPrepend"
+                            >@</span
+                          >
+                          <input
+                            type="email"
+                            name="email"
+                            class="form-control"
+                            id="email"
+                            required
+                            formControlName="email"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.email.errors
+                            }"
+                          />
+                          <div
+                            *ngIf="submitted && f.email.errors"
+                            class="invalid-feedback"
+                          >
+                            <div
+                              *ngIf="f.email.errors.required"
+                              style="text-align: center"
+                            >
+                              champ obligatoire
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-6">
+                        <label for="yourPassword" class="form-label"
+                          >Mot de passe</label
+                        >
+                        <input
+                          type="password"
+                          name="password"
+                          class="form-control"
+                          id="password"
+                          required
+                          formControlName="password"
+                          [ngClass]="{
+                            'is-invalid': submitted && f.password.errors
+                          }"
+                        />
+                        <div
+                          *ngIf="submitted && f.password.errors"
+                          class="invalid-feedback"
+                        >
+                          <div
+                            *ngIf="f.password.errors.required"
+                            style="text-align: center"
+                          >
+                            champ obligatoire
+                          </div>
+                        </div>
+                      </div>
+                      <!--<div class="col-6">
+                        <label for="yourPassword" class="form-label"
+                          >Confirmation de mot de passe</label
+                        >
+                        <input
+                          type="password"
+                          name="password"
+                          class="form-control"
+                          id="password"
+                          required
+                          formControlName="pwdd"
+                          [ngClass]="{
+                            'is-invalid': submitted && f.pwdd.errors
+                          }"
+                        />
+                        <div
+                          *ngIf="submitted && f.pwdd.errors"
+                          class="invalid-feedback"
+                        >
+                          <div
+                            *ngIf="f.pwdd.errors.required"
+                            style="text-align: center"
+                          >
+                            champ obligatoire
+                          </div>
+                        </div>
+                      </div>-->
+                      <!-- <div class="col-6">
+                        <label for="yourPassword" class="form-label"
+                          >Confirmation du mot de passe</label
+                        >
+                        <input
+                          type="confirmpass"
+                          name="confirmpass"
+                          class="form-control"
+                          id="password"
+                          required
+                          formControlName="confirmpass"
+                          pattern=""
+                          [ngClass]="{
+                            'is-invalid': submitted && f.confirmpass.errors
+                          }"
+                        />
+                        <div
+                          *ngIf="submitted && f.confirmpass.errors"
+                          class="invalid-feedback"
+                        >
+                          <div
+                            *ngIf="f.confirmpass.errors.required"
+                            style="text-align: center"
+                          >
+                            champ obligatoire
+                          </div>
+                        </div>
+                      </div>-->
+                      <div class="col-12">
+                        <label
+                          for="about"
+                          class="col-md-4 col-lg-3 col-form-label"
+                          >À propos</label
+                        >
+
+                        <textarea
+                          type="text"
+                          name="apropos"
+                          class="form-control"
+                          id="apropos"
+                          required
+                          formControlName="apropos"
+                          [ngClass]="{
+                            'is-invalid': submitted && f.apropos.errors
+                          }"
+                          id="about"
+                          style="height: 100px"
+                        ></textarea>
+                        <div
+                          *ngIf="submitted && f.apropos.errors"
+                          class="invalid-feedback"
+                        >
+                          <div
+                            *ngIf="f.apropos.errors.required"
+                            style="text-align: center"
+                          >
+                            champ obligatoire
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-6">
+                        <label class="form-control-label"
+                          >Charger l'image</label
+                        >
+                        <div class="input-group has-validation">
+                          <input
+                            type="file"
+                            class="btn btn-primary btn-sm"
+                            accept="image/*"
+                            (change)="onSelectFile($event)"
+                          />
+                        </div>
+                        <img
+                          [src]="imgURL"
+                          height="200"
+                          *ngIf="imgURL"
+                          style="padding: 15px"
+                        />
+                      </div>
+                      <div class="col-12"></div>
+                      <div class="col-4" style="margin: auto; padding: 15px">
+                        <button class="btn btn-primary w-100" type="submit">
+                          <span
+                            *ngIf="loading"
+                            class="spinner-border spinner-border-sm mr-1"
+                          ></span>
+                          Créer un compte
+                        </button>
+                        <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
+                          {{ error }}
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+                <div class="credits">
+                  <!-- All the links in the footer should remain intact. -->
+                  <!-- You can delete the links only if you purchased the pro version. -->
+                  <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                  <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <!-- End #main -->
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Vendor JS Files -->
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

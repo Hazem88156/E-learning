@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Favicons -->
+
+    <!-- Template Main CSS File -->
+
+    <!-- =======================================================
+  * Template Name: NiceAdmin - v2.2.2
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  </head>
+
+  <body>
+    <!-- ======= Header ======= -->
+    <app-header></app-header>
+
+    <!-- ======= Sidebar ======= -->
+    <app-sidbar-etudiant></app-sidbar-etudiant>
+    <!-- End Sidebar-->
+
+    <main id="main" class="main">
+      <div class="pagetitle">
+        <h1>{{ nomCours }}</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="['/dashboradadmin']">Accueil</a>
+            </li>
+            <li class="breadcrumb-item active">{{ nomCours }}</li>
+          </ol>
+        </nav>
+      </div>
+      <!-- End Page Title -->
+
+      <section class="section dashboard">
+        <div class="row">
+          <div class="col-xl-12">
+            <!-- Bordered Tabs -->
+            <div class="row">
+              <div class="col-xxl-4 col-md-6">
+                <div class="card info-card sales-card">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"></a>
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title" (click)="CoursDocument()">
+                      Documents <span></span>
+                    </h5>
+
+                    <div class="d-flex align-items-center">
+                      <div
+                        class="card-icon rounded-circle d-flex align-items-center justify-content-center"
+                      >
+                        <i class="bi bi-file-earmark-pdf-fill"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End Change Password Form -->
+              <div class="col-xxl-4 col-md-6">
+                <div class="card info-card sales-card">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"></a>
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title" (click)="CoursVideo()">
+                      Videos <span></span>
+                    </h5>
+
+                    <div class="d-flex align-items-center">
+                      <div
+                        class="card-icon rounded-circle d-flex align-items-center justify-content-center"
+                      >
+                        <i class="bi bi-cone-striped"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xxl-4 col-md-6">
+                <div class="card info-card sales-card">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"></a>
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title" (click)="CoursExamen()">
+                      Examens <span></span>
+                    </h5>
+
+                    <div class="d-flex align-items-center">
+                      <div
+                        class="card-icon rounded-circle d-flex align-items-center justify-content-center"
+                      >
+                        <i class="bi bi-folder-fill"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- End Bordered Tabs -->
+      </section>
+    </main>
+    <!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <app-footer></app-footer>
+    <!-- End Footer -->
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Vendor JS Files -->
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <!-- Google Fonts -->
+
+    <!-- Vendor CSS Files -->
+
+    <!-- =======================================================
+  * Template Name: NiceAdmin - v2.2.2
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+    <script type="text/javascript" src="lib/gcpdfviewer.js"></script>
+    <script>
+      function loadPdfViewer(selector) {
+        // Change default toolbar:
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- ======= Header ======= -->
+    <app-header></app-header>
+    <!-- End Header -->
+
+    <!-- ======= Sidebar ======= -->
+    <app-sidbar-professeur></app-sidbar-professeur>
+    <!-- End Sidebar-->
+
+    <main id="main" class="main">
+      <div class="pagetitle">
+        <h1>Details Vedio</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="['/dashboradadmin']">Accueil</a>
+            </li>
+
+            <li class="breadcrumb-item active">Details Vedio</li>
+          </ol>
+        </nav>
+      </div>
+      <!-- End Page Title -->
+
+      <section class="section profile">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="card">
+              <div class="card-body pt-3">
+                <!-- Bordered Tabs -->
+                <ul class="nav nav-tabs nav-tabs-bordered">
+                  <li class="nav-item">
+                    <button
+                      class="nav-link active"
+                      data-bs-toggle="tab"
+                      data-bs-target="#profile-overview"
+                    >
+                      Aperçu
+                    </button>
+                  </li>
+                </ul>
+                <div class="tab-content pt-2">
+                  <div
+                    class="tab-pane fade show active profile-overview"
+                    id="profile-overview"
+                  >
+                    <h5 class="card-title">Détails du Vedio</h5>
+                  </div>
+                  <header>
+                    <div class="row">
+                      <div class="col-3">
+                        <span
+                          class="label"
+                          style="font-weight: 600; color: rgba(1, 41, 112, 0.6)"
+                        >
+                          Video :
+                        </span>
+                        <strong> {{ vedioName }} </strong>
+                      </div>
+                      <div class="col-3">
+                        <span
+                          class="label"
+                          style="font-weight: 600; color: rgba(1, 41, 112, 0.6)"
+                        >
+                          Classe :
+                        </span>
+                        <strong>
+                          {{ nomClasse }}
+                        </strong>
+                      </div>
+                      <div class="col-3">
+                        <span
+                          class="label"
+                          style="font-weight: 600; color: rgba(1, 41, 112, 0.6)"
+                        >
+                          Professeur :
+                        </span>
+                        <strong> {{ firstName }} {{ lastName }} </strong>
+                      </div>
+                      <div class="col-3">
+                        <span
+                          class="label"
+                          style="font-weight: 600; color: rgba(1, 41, 112, 0.6)"
+                        >
+                          Matiere :
+                        </span>
+                        <strong> {{ nomMatiere }} </strong>
+                      </div>
+                    </div>
+                  </header>
+                  <nav>
+                    <div class="row">
+                      <div class="col-5"></div>
+                      <div class="col-7"></div>
+                    </div>
+                  </nav>
+                  <br />
+                  <div class="videoplayer" id="myCustomPlayer">
+                    <div class="ratio ratio-16x9 bg-dark">
+                      <video
+                        (timeupdate)="onVideoTimeUpdate()"
+                        #videoPlayer
+                        duration="360"
+                        class="video"
+                        src="{{ 'http://localhost:8081/api/Vedio/' + id }}"
+                      ></video>
+                    </div>
+                    <div class="controls">
+                      <button
+                        class="btn btn-lg btn-video-playpause"
+                        type="button"
+                        title="Play Video"
+                        (click)="playVideo()"
+                      >
+                        <i class="bi bi-play-fill" style="color: beige"></i>
+                      </button>
+                      <button
+                        class="btn btn-lg btn-video-playpause"
+                        type="button"
+                        (click)="pauseVideo()"
+                        title="Pause Video"
+                      >
+                        <i class="bi bi-pause-fill" style="color: beige"></i>
+                      </button>
+                      <div class="px-1 w-100">
+                        <div class="progress w-100">
+                          <div class="progress-bar">
+                            <div
+                              class="progress"
+                              [style.width.%]="videoProgress"
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        class="btn btn-lg btn-video-pip"
+                        title="Play picture in picture"
+                        id="pipButton"
+                        (click)="enterPictureInPicture()"
+                      >
+                        <i class="bi bi-pip" style="color: beige"></i>
+                      </button>
+                      <button
+                        class="btn btn-lg btn-video-fullscreen"
+                        (click)="toggleFullscreen()"
+                      >
+                        <i
+                          class="bi bi-arrows-fullscreen"
+                          style="color: beige"
+                        ></i>
+                      </button>
+                      <i
+                        class="bi bi-volume-up-fill"
+                        style="font-size: 25px; color: rgb(255, 255, 255)"
+                      ></i>
+                      <div class="dropup">
+                        <input
+                          type="range"
+                          [(ngModel)]="volume"
+                          (input)="updateVolume()"
+                          min="0"
+                          max="1"
+                          step="0.1"
+                          style="
+                            height: 4px;
+                            max-width: 75px;
+
+                            margin-right: 1em;
+                          "
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <br />
+                </div>
+                <!-- End Bordered Tabs -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <app-footer></app-footer>
+    <!-- End Footer -->
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Vendor JS Files -->
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

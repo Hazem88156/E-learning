@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Favicons -->
+
+    <!-- Template Main CSS File -->
+
+    <!-- =======================================================
+  * Template Name: NiceAdmin - v2.2.2
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  </head>
+
+  <body>
+    <!-- ======= Header ======= -->
+    <app-header></app-header>
+
+    <!-- ======= Sidebar ======= -->
+    <app-sidbar-assistant></app-sidbar-assistant>
+    <!-- End Sidebar-->
+
+    <main id="main" class="main">
+      <div class="pagetitle">
+        <h1>Ajouter cour</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="['/dashboradadmin']">Accueil</a>
+            </li>
+            <li class="breadcrumb-item active">Ajouter cour</li>
+          </ol>
+        </nav>
+      </div>
+      <!-- End Page Title -->
+
+      <section class="section profile">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="card">
+              <div class="card-body pt-3">
+                <!-- Bordered Tabs -->
+
+                <div class="tab-content pt-2">
+                  <!-- Profile Edit Form -->
+                  <form
+                    [formGroup]="reactiveForm"
+                    (ngSubmit)="saveForm(reactiveForm)"
+                  >
+                    <div class="row mb-3">
+                      <label
+                        for="Linkedin"
+                        class="col-md-4 col-lg-3 col-form-label"
+                        >Nom :</label
+                      >
+                      <div class="col-md-8 col-lg-6">
+                        <input
+                          name="linkedin"
+                          type="text"
+                          class="form-control"
+                          formControlName="nomCours"
+                        />
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label
+                        for="Linkedin"
+                        class="col-md-4 col-lg-3 col-form-label"
+                        >Classe :</label
+                      >
+                      <div class="col-md-8 col-lg-6">
+                        <select
+                          name="pets"
+                          id="pet-select"
+                          required
+                          name="classe"
+                          formControlName="classe"
+                        >
+                          <option value="" style="font-size: 12px">
+                            Sélectionnner votre classe
+                          </option>
+
+                          <option
+                            value="{{ classe.id }}"
+                            *ngFor="let classe of classes"
+                          >
+                            <td>{{ classe.nomClasse }}</td>
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label
+                        for="Linkedin"
+                        class="col-md-4 col-lg-3 col-form-label"
+                        >Matiere :</label
+                      >
+                      <div class="col-md-8 col-lg-6">
+                        <select
+                          name="pets"
+                          id="pet-select"
+                          required
+                          name="matiere"
+                          formControlName="matiere"
+                        >
+                          <option value="" style="font-size: 12px">
+                            Sélectionnner votre matiere
+                          </option>
+
+                          <option
+                            value="{{ matiere.id }}"
+                            *ngFor="let matiere of matieres"
+                          >
+                            <td>{{ matiere.nomMatiere }}</td>
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label
+                        for="Linkedin"
+                        class="col-md-4 col-lg-3 col-form-label"
+                        >Professeur :</label
+                      >
+                      <div class="col-md-8 col-lg-6">
+                        <select
+                          name="pets"
+                          id="pet-select"
+                          required
+                          name="user"
+                          formControlName="user"
+                        >
+                          <option value="" style="font-size: 12px">
+                            Sélectionnner votre professeur
+                          </option>
+
+                          <option
+                            value="{{ user.id }}"
+                            *ngFor="let user of users"
+                          >
+                            <td>{{ user.firstName }} {{ user.lastName }}</td>
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">
+                        <i
+                          class="bi bi-pencil"
+                          style="color: rgb(255, 255, 255)"
+                        ></i>
+                        Ajouter
+                      </button>
+                    </div>
+                  </form>
+                  <!-- End Profile Edit Form -->
+                </div>
+
+                <!-- End Change Password Form -->
+              </div>
+            </div>
+            <!-- End Bordered Tabs -->
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <app-footer></app-footer>
+    <!-- End Footer -->
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Vendor JS Files -->
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

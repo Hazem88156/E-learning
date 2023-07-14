@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <!-- Google Fonts -->
+
+    <!-- Vendor CSS Files -->
+
+    <!-- =======================================================
+  * Template Name: NiceAdmin - v2.2.2
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  </head>
+
+  <body>
+    <!-- ======= Header ======= -->
+    <app-header></app-header>
+    <!-- End Header -->
+
+    <!-- ======= Sidebar ======= -->
+    <app-sidbar-admin></app-sidbar-admin>
+    <!-- End Sidebar-->
+
+    <main id="main" class="main">
+      <div class="pagetitle">
+        <h1>Details Professeur</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="['/dashboradadmin']">Accueil</a>
+            </li>
+
+            <li class="breadcrumb-item active">Details Professeur</li>
+          </ol>
+        </nav>
+      </div>
+      <!-- End Page Title -->
+
+      <section class="section profile">
+        <div class="row">
+          <div class="col-xl-4">
+            <div class="card">
+              <div
+                class="card-body profile-card pt-4 d-flex flex-column align-items-center"
+              >
+                <img
+                  src="{{ 'http://localhost:8081/api/auth/Images/' + id }}"
+                  style="
+                    display: inline-block;
+                    border-radius: 50%;
+                    width: 120px;
+                    height: 110px;
+                  "
+                  class="rounded-circle"
+                />
+                <h2>{{ firstName }} {{ lastName }}</h2>
+                <!--<h3>Web Designer</h3>-->
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-8">
+            <div class="card">
+              <div class="card-body pt-3">
+                <!-- Bordered Tabs -->
+                <ul class="nav nav-tabs nav-tabs-bordered">
+                  <li class="nav-item">
+                    <button
+                      class="nav-link active"
+                      data-bs-toggle="tab"
+                      data-bs-target="#profile-overview"
+                    >
+                      Aperçu
+                    </button>
+                  </li>
+                </ul>
+                <div class="tab-content pt-2">
+                  <div
+                    class="tab-pane fade show active profile-overview"
+                    id="profile-overview"
+                  >
+                    <h5 class="card-title">À propos</h5>
+                    <p class="small fst-italic">{{ apropros }}</p>
+
+                    <h5 class="card-title">Détails du profil</h5>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Nom et prénom</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ firstName }} {{ lastName }}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">N°cin</div>
+                      <div class="col-lg-9 col-md-8">{{ ncin }}</div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Email</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ email }}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Téléphone</div>
+                      <div class="col-lg-9 col-md-8">
+                        (+216) {{ telephone }}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Status</div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ status }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="tab-pane fade profile-edit pt-3"
+                    id="profile-edit"
+                  ></div>
+
+                  <div class="tab-pane fade pt-3" id="profile-settings">
+                    <!-- Settings Form -->
+
+                    <!-- End settings Form -->
+                  </div>
+                </div>
+                <!-- End Bordered Tabs -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <app-footer></app-footer>
+    <!-- End Footer -->
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Vendor JS Files -->
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
