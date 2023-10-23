@@ -1,52 +1,65 @@
 package com.elearning.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "matiere")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class MatiereEntity  extends MyEntity implements Serializable{
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	
-	private Long id;
-	private String nomMatiere;
-	@JsonIgnore
-	@ManyToMany(mappedBy="matieres",cascade=CascadeType.ALL)
-	List<UserEntity> users=new ArrayList<UserEntity>();
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getNomMatiere() {
-		return nomMatiere;
-	}
-	public void setNomMatiere(String nomMatiere) {
-		this.nomMatiere = nomMatiere;
-	}
-	public List<UserEntity> getUsers() {
-		return users;
-	}
-	public void setUsers(List<UserEntity> users) {
-		this.users = users;
-	}
-	
+public class MatiereEntity extends MyEntity implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
+    private Long id;
+    private String nomMatiere;
+    private String coeif;
+    private String nbHeure;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<CoursEntity> cours = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNomMatiere() {
+        return nomMatiere;
+    }
+
+    public void setNomMatiere(String nomMatiere) {
+        this.nomMatiere = nomMatiere;
+    }
+
+    public List<CoursEntity> getCours() {
+        return cours;
+    }
+
+    public void setCours(List<CoursEntity> cours) {
+        this.cours = cours;
+    }
+
+    public String getNbHeure() {
+        return nbHeure;
+    }
+
+    public void setNbHeure(String nbHeure) {
+        this.nbHeure = nbHeure;
+    }
+
+    public String getCoeif() {
+        return coeif;
+    }
+
+    public void setCoeif(String coeif) {
+        this.coeif = coeif;
+    }
 
 }

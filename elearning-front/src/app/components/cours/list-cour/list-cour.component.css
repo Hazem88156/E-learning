@@ -6,6 +6,7 @@ table {
 }
 tr:nth-child(odd) {
   background-color: rgba(164, 211, 255, 0.6);
+  white-space: nowrap;
 }
 
 th {

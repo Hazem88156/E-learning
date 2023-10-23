@@ -31,16 +31,16 @@ public class VedioService {
 		// TODO Auto-generated method stub
 		return vedioRepository.findById(id);
 	}
-	public List<VedioEntity> getVediosByUser(Long userId) {
+	/*public List<VedioEntity> getVediosByUser(Long userId) {
         return vedioRepository.findByCourUserId(userId);
-    }
-	 public List<VedioEntity> getVediosByCoursId(Long id) {
+    }*/
+	 /*public List<VedioEntity> getVediosByCoursId(Long id) {
 	 	    CoursEntity cours = coursRepository.findById(id).orElse(null);
 	 	    if (cours != null) {
 	 	        List<VedioEntity> vedios = cours.getVedios();
 	 	        return vedios;
 	 	    }
 	 	    return new ArrayList<>();
-	 	}
+	 	}*/
 
 }

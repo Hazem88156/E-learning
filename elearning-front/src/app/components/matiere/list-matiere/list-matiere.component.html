@@ -83,7 +83,8 @@
                     >
                       <thead>
                         <tr>
-                          <th scope="col">Matiére</th>
+                          <th scope="col">Matiére <i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></th>
                           <th scope="col">ACTION</th>
                         </tr>
                       </thead>
@@ -192,6 +193,16 @@
                           </ng-template>
                         </tr>
                       </tbody>
+                      <tfoot>
+                        <tr>
+                          <td colspan="12">
+                            <pagination-controls
+                              style="text-align: center;"
+                              (pageChange)="p = $event"
+                            ></pagination-controls>
+                          </td>
+                        </tr>
+                      </tfoot>
                     </table>
                   </div>
                 </div>

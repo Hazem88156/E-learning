@@ -1,27 +1,29 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VedioServiceService {
+  apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) {}
   createVedio(formData: FormData): Observable<any> {
-    return this.http.post<any>(`http://localhost:8081/api/vedios`, formData);
+    return this.http.post<any>(`${this.apiUrl}/vedios`, formData);
   }
   getVedio(): Observable<any> {
-    return this.http.get<any>('http://localhost:8081/api/vedio');
+    return this.http.get<any>(`${this.apiUrl}/vedio`);
   }
   getVedioById(id: number): Observable<any> {
-    return this.http.get<any>('http://localhost:8081/api/vediodetail/' + id);
+    return this.http.get<any>(`${this.apiUrl}/vediodetail/`+ id);
   }
   getVedioByUserId(userId: number): Observable<any> {
-    return this.http.get<any>('http://localhost:8081/api/vedio/' + userId);
+    return this.http.get<any>(`${this.apiUrl}/vedio/`+ userId);
   }
   getVideoByCoursId(coursId: number): Observable<any> {
     return this.http.get<any>(
-      'http://localhost:8081/api/vedios/cours/' + coursId
+      `${this.apiUrl}/vedios/cours/` + coursId
     );
   }
 }

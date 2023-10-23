@@ -93,7 +93,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		
 		
 		
-		for(MatiereEntity m : userr.getMatieres()) {
+		/*for(MatiereEntity m : userr.getMatieres()) {
 			MatiereEntity matiere = matiereRepository.findById(m.getId()).get();
 			if (!matiere.getUsers().contains(u))
 			{
@@ -101,7 +101,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 				
 			}
 			matiereRepository.save(matiere);
-		}
+		}*/
 		
 		userRepository.save(u);
 		
@@ -175,5 +175,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		System.out.println("Get all Users roles 11111...");
 		return userRepository.findByRoles(roles);
 	}
-	
+	public void deleteUser(Long id) {
+		userRepository.deleteById(id);
+	}
 }

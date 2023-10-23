@@ -34,7 +34,7 @@ public class UserEntity extends MyEntity implements Serializable {
 	
 	public UserEntity(Long id, String email, String username, String password, String firstName, String lastName,
 			String addresse, String telephone, String imgfile, String apropos, String ncin, String status,
-			ClasseEntity classesEtudiant, List<CoursEntity> cours, List<MatiereEntity> matieres, boolean isManager,
+			ClasseEntity classesEtudiant, boolean isManager,
 			RoleEntity roles, boolean enabled) {
 		super();
 		this.id = id;
@@ -50,8 +50,6 @@ public class UserEntity extends MyEntity implements Serializable {
 		this.ncin = ncin;
 		this.status = status;
 		this.classesEtudiant = classesEtudiant;
-		this.cours = cours;
-		this.matieres = matieres;
 		this.isManager = isManager;
 		this.roles = roles;
 		this.enabled = enabled;
@@ -78,15 +76,7 @@ public class UserEntity extends MyEntity implements Serializable {
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	private ClasseEntity classesEtudiant;
-	
-	@OneToMany(mappedBy = "user")
-	
-    private List<CoursEntity> cours;
-	
-	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name = "user_matiere", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "matiere_id"))
-	List<MatiereEntity> matieres=new ArrayList<>();
-	
+
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean isManager;
 	@Enumerated(EnumType.STRING)
@@ -165,13 +155,7 @@ public class UserEntity extends MyEntity implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	public List<MatiereEntity> getMatieres() {
-		return matieres;
-	}
-	public void setMatieres(List<MatiereEntity> matieres) {
-		this.matieres = matieres;
-	}
+
 	public boolean isManager() {
 		return isManager;
 	}
@@ -197,12 +181,12 @@ public class UserEntity extends MyEntity implements Serializable {
 		this.classesEtudiant = classesEtudiant;
 	}
 
-	public List<CoursEntity> getCours() {
+	/*public List<CoursEntity> getCours() {
 		return cours;
 	}
 
 	public void setCours(List<CoursEntity> cours) {
 		this.cours = cours;
-	}
+	}*/
 	
 }

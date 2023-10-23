@@ -9,6 +9,7 @@ import { ClasseServiceService } from 'src/app/services/classe-service.service';
   styleUrls: ['./list-classe.component.css'],
 })
 export class ListClasseComponent implements OnInit {
+  p: number = 1;
   constructor(
     private service: ClasseServiceService,
     private router: Router,
@@ -27,8 +28,23 @@ export class ListClasseComponent implements OnInit {
       .catch((error) => console.log(error));
     console.log(' liste classess' + this.classes);
   }
-  updateClasse(classe: any) {
-    this.service.setter(classe);
-    this.router.navigate(['update-classe']);
+  updateUser(userid: number) {
+    this.router.navigate(['edit-professeur', userid]);
   }
+  updateClasse(classeid: number) {
+    this.router.navigate(['update-classe',classeid]);
+  }
+  key = 'id';
+  reverse: boolean = false;
+  sort(key: any) {
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
+  deleteClasse(id: number) {
+    this.service.deleteClasse(id).subscribe(() => {
+      // Mettre à jour la liste des classes après suppression
+      this.classes = this.classes.filter(classe => classe.id !== id);
+    });
+  }
+
 }

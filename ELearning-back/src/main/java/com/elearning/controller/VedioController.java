@@ -120,20 +120,20 @@ public ResponseEntity<byte[]> getVedio(@PathVariable("id") Long id) throws Excep
 			 .contentType(MediaType.APPLICATION_OCTET_STREAM)
 			 .body(bytes);
 }
-@GetMapping("/vedio/{userId}")
+/*@GetMapping("/vedio/{userId}")
 public ResponseEntity<List<VedioEntity>> getVediosByProfesseur(@PathVariable Long userId) {
     List<VedioEntity> vedios = vedioService.getVediosByUser(userId);
     return ResponseEntity.ok(vedios);
-}
+}*/
  
-@GetMapping("/vedios/cours/{courId}")
+/*@GetMapping("/vedios/cours/{courId}")
  public ResponseEntity<List<VideoDTO>> getVediosByCours(@PathVariable Long courId) {
 	System.out.println("Liste de veios pour le cours " + courId);
     List<VedioEntity> vedios = vedioService.getVediosByCoursId(courId);
     List<VideoDTO> vedio=modelMapperConverter.convertAllToDTO(vedios,VideoDTO.class);
     System.out.println(vedio);
     return ResponseEntity.ok(vedio);
- }
+ }*/
 
 
 }

@@ -8,4 +8,5 @@ import com.elearning.entities.MatiereEntity;
 
 public interface MatiereRepository extends JpaRepository<MatiereEntity, Long>{
 
+
 }

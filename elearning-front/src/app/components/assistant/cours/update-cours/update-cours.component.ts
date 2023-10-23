@@ -18,9 +18,9 @@ import { MatiereServiceService } from 'src/app/services/matiere-service.service'
 export class UpdateCoursComponent implements OnInit {
   cours: Cours = new Cours();
   id!: number;
-  users: User[] = [];
-  matieres: Matiere[] = [];
-  classes: Classe[] = [];
+  //users: User[] = [];
+  //matieres: Matiere[] = [];
+  //classes: Classe[] = [];
   submitted = false;
   reactiveForm!: FormGroup;
   selectedUser: User = new User();
@@ -36,9 +36,9 @@ export class UpdateCoursComponent implements OnInit {
   ) {
     this.reactiveForm = this.fb.group({
       nomCours: ['', [Validators.required]],
-      matiere: [null, [Validators.required]],
-      classe: [null, [Validators.required]],
-      user: [null, [Validators.required]],
+      //matiere: [null, [Validators.required]],
+      //classe: [null, [Validators.required]],
+      //user: [null, [Validators.required]],
     });
   }
 
@@ -52,20 +52,20 @@ export class UpdateCoursComponent implements OnInit {
       .then((data) => {
         console.log(data);
         this.cours = data;
-        console.log(this.cours.matiere);
-        console.log(this.cours.classe);
+        //console.log(this.cours.matiere);
+        //console.log(this.cours.classe);
         this.reactiveForm = this.fb.group({
           nomCours: [this.cours.nomCours, [Validators.required]],
-          matiere: [this.cours.matiere, [Validators.required]],
-          classe: [this.cours.classe, [Validators.required]],
-          user: [this.cours.user, [Validators.required]],
+         // matiere: [this.cours.matiere, [Validators.required]],
+         // classe: [this.cours.classe, [Validators.required]],
+         // user: [this.cours.user, [Validators.required]],
         });
         console.log(this.reactiveForm.controls);
         this.getOtherInfo();
       });
   }
   getOtherInfo() {
-    this.serviceMatiere
+    /*this.serviceMatiere
       .getMatiere()
       .toPromise()
       .then((matieres) => {
@@ -91,7 +91,7 @@ export class UpdateCoursComponent implements OnInit {
         this.selectedClasse = this.classes.filter(
           (c: Classe) => c.id == this.cours.classe.id
         )[0];
-      });
+      });*/
   }
   updateForm(submitForm: FormGroup) {
     this.submitted = true;
@@ -101,7 +101,7 @@ export class UpdateCoursComponent implements OnInit {
     if (this.reactiveForm.valid) {
       console.log(this.reactiveForm.value);
       const cour = this.reactiveForm.value as Cours;
-      cour.user = this.users.filter(
+      /*cour.user = this.users.filter(
         (u) => u.id == this.reactiveForm.value.user
       )[0];
       cour.matiere = this.matieres.filter(
@@ -109,7 +109,7 @@ export class UpdateCoursComponent implements OnInit {
       )[0];
       cour.classe = this.classes.filter(
         (c) => c.id == this.reactiveForm.value.classe
-      )[0];
+      )[0];*/
 
       console.log(cour);
 
@@ -131,14 +131,14 @@ export class UpdateCoursComponent implements OnInit {
     }
   }
 
-  isMatiereSelected(matiere: Matiere) {
+ /* isMatiereSelected(matiere: Matiere) {
     var isSelected =
       this.cours.matiere != null && this.cours.matiere.id == matiere.id;
     return isSelected;
-  }
-  isClasseSelected(classe: Classe) {
+  }*/
+ /* isClasseSelected(classe: Classe) {
     var isSelected =
       this.cours.classe != null && this.cours.classe.id == classe.id;
     return isSelected;
-  }
+  }*/
 }

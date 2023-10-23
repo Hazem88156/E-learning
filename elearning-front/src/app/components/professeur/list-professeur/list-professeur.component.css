@@ -11,6 +11,7 @@ tr:nth-child(odd) {
 th {
   background-color: rgb(2, 2, 129);
   color: azure;
+  white-space: nowrap;
 }
 pagination-controls {
   display: flex;

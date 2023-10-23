@@ -27,7 +27,7 @@
 
     <main id="main" class="main">
       <div class="pagetitle">
-        <h1>Liste des Matiéres</h1>
+        <h1>Liste des Classes</h1>
         <nav>
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -83,20 +83,24 @@
                     >
                       <thead>
                         <tr>
-                          <th scope="col">Classe</th>
-                          <th scope="col">Professeur</th>
-                          <th scope="col">Matiere</th>
+                          <th scope="col" (click)="sort('id')"><span>Classe <i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></span></th>
+                          <th scope="col" (click)="sort('id')"><span>Section <i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></span></th>
+                          <th scope="col" (click)="sort('id')"><span>Annee <i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></span></th>
+
+                          <th scope="col" (click)="sort('id')"><span>Matiere <i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></span></th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let classe of classes">
+                        <tr *ngFor="let classe of classes | orderBy: key:reverse
+                        | paginate: { itemsPerPage: 5, currentPage: p }">
                           <td scope="col">{{ classe.nomClasse }}</td>
-                          <td scope="col">
-                            <ul *ngFor="let user of classe.users">
-                              <li>{{ user.firstName }} {{ user.lastName }}</li>
-                            </ul>
-                          </td>
+                          <td scope="col">{{ classe.section }}</td>
+                          <td scope="col">{{ classe.annee}}</td>
                           <td scope="col">
                             <ul *ngFor="let matiere of classe.matieres">
                               <li>{{ matiere.nomMatiere }}</li>
@@ -105,15 +109,36 @@
                           <td>
                             <a
                               class="btn btn-primary btn-sm"
-                              (click)="updateClasse(classe)"
+                              (click)="updateClasse(classe.id)"
                               ><i
                                 class="bi bi-pencil"
                                 style="color: rgb(255, 255, 255)"
                               ></i
                             ></a>
+                            &nbsp;
+                              <span>
+                                <a
+                                  class="btn btn-danger btn-sm"
+                                  (click)=" deleteClasse(classe.id)"
+                                  ><i
+                                    class="bi bi-trash-fill"
+                                    style="color: rgb(255, 255, 255)"
+                                  ></i
+                                ></a>
+                              </span>
                           </td>
                         </tr>
                       </tbody>
+                      <tfoot>
+                        <tr>
+                          <td colspan="12">
+                            <pagination-controls
+                              style="text-align: center;"
+                              (pageChange)="p = $event"
+                            ></pagination-controls>
+                          </td>
+                        </tr>
+                      </tfoot>
                     </table>
                   </div>
                 </div>

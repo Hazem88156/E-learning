@@ -59,11 +59,11 @@ export class DetailVedioComponent implements OnInit {
         this.vedios = data;
         this.cour = this.vedios.cour;
         this.vedioName = this.vedios.vedioName;
-        this.professeur = this.cour.user;
+        //this.professeur = this.cour.user;
         this.firstName = this.professeur.firstName;
         this.lastName = this.professeur.lastName;
-        this.matiere = this.cour.matiere;
-        this.classe = this.cour.classe;
+        //this.matiere = this.cour.matiere;
+        //this.classe = this.cour.classe;
         this.nomClasse = this.classe.nomClasse;
         this.nomMatiere = this.matiere.nomMatiere;
       });

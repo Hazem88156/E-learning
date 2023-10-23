@@ -11,3 +11,10 @@ th {
   background-color: rgb(2, 2, 129);
   color: azure;
 }
+pagination-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color:rgb(2, 2, 129);
+}
+

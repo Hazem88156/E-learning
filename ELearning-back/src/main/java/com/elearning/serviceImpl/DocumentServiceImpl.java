@@ -52,7 +52,7 @@ public class DocumentServiceImpl implements DocumentService{
 		return documentRepository.findById(id);
 	}
 
-	public List<DocumentEntity> getDocumentsByUser(Long userId) {
+	/*public List<DocumentEntity> getDocumentsByUser(Long userId) {
         return documentRepository.findByCourUserId(userId);
     }
 	 public List<DocumentEntity> getDocumentsByCoursId(Long id) {
@@ -62,7 +62,7 @@ public class DocumentServiceImpl implements DocumentService{
  	        return documents;
  	    }
  	    return new ArrayList<>();
- 	}
+ 	}*/
  	 
 	
 }

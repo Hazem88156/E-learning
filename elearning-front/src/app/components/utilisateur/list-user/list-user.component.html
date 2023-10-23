@@ -27,13 +27,13 @@
 
     <main id="main" class="main">
       <div class="pagetitle" style="font-family: Times New Roman">
-        <h1>Liste des utilisateurs</h1>
+        <h1>Liste des assistants</h1>
         <nav>
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
               <a [routerLink]="['/dashboradadmin']">Accueil</a>
             </li>
-            <li class="breadcrumb-item active">Liste des utilisateurs</li>
+            <li class="breadcrumb-item active">Liste des assistants</li>
           </ol>
         </nav>
       </div>
@@ -80,7 +80,7 @@
                             name="optionsRadios"
                             type="radio"
                             value="option1"
-                          />&nbsp;&nbsp;liste des utilisateurs </label
+                          />&nbsp;&nbsp;liste des assistants </label
                         ><br />
                       </div>
                       <div class="col-lg-3">
@@ -93,7 +93,7 @@
                             name="optionsRadios"
                             type="radio"
                             value="option2"
-                          />&nbsp;&nbsp;liste des utilisateurs active</label
+                          />&nbsp;&nbsp;liste des assistants active</label
                         ><br />
                       </div>
                       <div class="col-lg-3">
@@ -106,7 +106,7 @@
                             name="optionsRadios"
                             type="radio"
                             value="option3"
-                          />&nbsp;&nbsp;liste des utilisateurs inactive</label
+                          />&nbsp;&nbsp;liste des assistants inactive</label
                         ><br />
                       </div>
 
@@ -123,18 +123,26 @@
                     >
                       <thead>
                         <tr>
-                          <th scope="col">Img</th>
-                          <th scope="col">Nom</th>
-                          <th scope="col">Prenom</th>
-                          <th scope="col">Email</th>
-                          <th scope="col">Telephone</th>
-                          <th scope="col">N°cin</th>
-                          <th scope="col">Status</th>
-                          <th scope="col">Action</th>
+                          <th scope="col" (click)="sort('id')" ><span>Img <i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></span></th>
+                          <th scope="col" (click)="sort('id')"><span>Nom <i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></span></th>
+                          <th scope="col" (click)="sort('id')"><span>Prenom <i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></span></th>
+                          <th scope="col" (click)="sort('id')"><span>Email <i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></span></th>
+                          <th scope="col" (click)="sort('id')"><span>Telephone <i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></span></th>
+                          <th scope="col" (click)="sort('id')"><span>N°cin <i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></span></th>
+                          <th scope="col" (click)="sort('id')"><span>Status <i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></span></th>
+                          <th scope="col" (click)="sort('id')">Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let user of users">
+                        <tr *ngFor="let user of users | orderBy: key:reverse
+                        | paginate: { itemsPerPage: 5, currentPage: p }">
                           <td scope="col">
                             <img
                               class="card-img-top img-responsive"
@@ -168,33 +176,37 @@
                             </div>
                           </td>
                           <td scope="col">
+                            <div class="d-flex justify-content-start">
+                            <span>
                             <a
                               class="btn btn-primary btn-sm"
                               (click)="open(modifier, user)"
                               ><i
-                                class="bi bi-pencil"
-                                style="color: rgb(255, 255, 255)"
-                              ></i
-                            ></a>
+                              class="bi bi-pencil-fill"
+                              style="color: rgb(255, 255, 255)"
+                            ></i
+                          ></a>
+                            </span>
                             &nbsp;
+                            <span>
                             <a
                               class="btn btn-secondary btn-sm"
                               (click)="open(details, user)"
                               ><i
-                                class="bi bi-eye"
-                                style="color: rgb(255, 255, 255)"
-                              ></i
-                            ></a>
+                              class="bi bi-eye-fill"
+                              style="color: rgb(255, 255, 255)"
+                            ></i
+                          ></a>
+                          </span>
                             &nbsp;
                             <span *ngIf="user.status !== 'ACTIVE'">
                               <a
                                 class="btn btn-success btn-sm"
                                 (click)="open(accept, user)"
                                 ><i
-                                  class="bi bi-hand-thumbs-up-fill"
-                                  style="color: rbg(255, 255, 255)"
-                                ></i
-                              ></a>
+                                class="bi bi-person-check-fill"
+                                style="color: rgb(255, 255, 255)"
+                              ></i></a>
                             </span>
                             &nbsp;
                             <span *ngIf="user.status !== 'INACTIVE'">
@@ -203,21 +215,23 @@
                                 (click)="open(rejet, user)"
                                 style="color: rbg(255, 255, 255)"
                                 ><i
-                                  class="bi bi-hand-thumbs-down-fill"
-                                  style="color: rbg(255, 255, 255)"
-                                ></i
-                              ></a>
+                                class="bi bi-person-x-fill"
+                                style="color: rgb(255, 255, 255)"
+                              ></i></a>
                             </span>
                             &nbsp;
+                            <span>
                             <a
                               class="btn btn-danger btn-sm"
                               (click)="open(supprimer, user)"
                               ><i
-                                class="bi bi-trash"
-                                style="color: rbg(255, 255, 255)"
-                              ></i
-                            ></a>
-                          </td>
+                              class="bi bi-trash-fill"
+                              style="color: rgb(255, 255, 255)"
+                            ></i
+                          ></a>
+                          </span>
+                          </div>
+                        </td>
                           <ng-template #accept let-c="close" let-d="dismiss">
                             <div
                               class="modal-header"
@@ -317,7 +331,7 @@
                               <button
                                 type="button"
                                 class="btn btn-danger"
-                                (click)="c('')"
+                                (click)="deleteUser(user.id)"
                               >
                                 Supprimer
                               </button>
@@ -392,6 +406,16 @@
                           </ng-template>
                         </tr>
                       </tbody>
+                      <tfoot>
+                        <tr>
+                          <td colspan="12">
+                            <pagination-controls
+                              style="margin: auto"
+                              (pageChange)="p = $event"
+                            ></pagination-controls>
+                          </td>
+                        </tr>
+                      </tfoot>
                     </table>
                   </div>
                 </div>

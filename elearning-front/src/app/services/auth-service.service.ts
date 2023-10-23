@@ -4,11 +4,12 @@ import { FormGroup } from '@angular/forms';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../Models/users';
-const apiJavaUrl = 'http://localhost:8080/api/auth';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthServiceService {
+  apiUrl = environment.apiUrl;
   private user = new User();
   isLoggedIn = false;
   choixmenu: string = 'A';
@@ -28,7 +29,7 @@ export class AuthServiceService {
   }
   login(email: string, password: string) {
     return this.http
-      .post<any>(`http://localhost:8081/api/auth/login`, { email, password })
+      .post<any>(`${this.apiUrl}/auth/login`, { email, password })
       .pipe(
         map((user) => {
           localStorage.setItem('currentUser', JSON.stringify(user));
@@ -47,14 +48,14 @@ export class AuthServiceService {
     firstpath: any,
     secondpath: any
   ): Observable<any[]> {
-    let response1 = this.http.post<any>(apiJavaUrl + firstpath, data);
+    let response1 = this.http.post<any>(this.apiUrl + '/auth' + firstpath, data);
     console.log(response1);
     return forkJoin([response1]);
   }
 
   register(user: User): Observable<any> {
     return this.http
-      .post<any>(`http://localhost:8081/api/auth/register`, user)
+      .post<any>(`${this.apiUrl}/auth/register`, user)
       .pipe(
         map((user) => {
           this.currentUserSubject.next(user);
@@ -69,44 +70,44 @@ export class AuthServiceService {
 
   createUser(formData: FormData): Observable<any> {
     return this.http.post<any>(
-      `http://localhost:8081/api/auth/users`,
+      `${this.apiUrl}/auth/users`,
       formData
     );
   }
   updateUser(formData: FormData, id: number): Observable<any> {
     return this.http.put<any>(
-      `http://localhost:8081/api/auth/updateEtudiant/${id}`,
+      `${this.apiUrl}/auth/updateEtudiant/${id}`,
       formData
     );
   }
   updateEtudiant(formData: FormData, id: number): Observable<any> {
     return this.http.put<any>(
-      `http://localhost:8081/api/auth/updateEtudiant/${id}`,
+      `${this.apiUrl}/auth/updateEtudiant/${id}`,
       formData
     );
   }
   getData(id: number): Observable<Object> {
-    return this.http.get(`http://localhost:8081/api/auth/users/${id}`);
+    return this.http.get(`${this.apiUrl}/auth/users/${id}`);
   }
   updatedata(id: number, value: any): Observable<Object> {
-    return this.http.put(`http://localhost:8081/api/auth/users/${id}`, value);
+    return this.http.put(`${this.apiUrl}/auth/users/${id}`, value);
   }
   getUsers(): Observable<any> {
-    return this.http.get<any>('http://localhost:8081/api/auth/users');
+    return this.http.get<any>(`${this.apiUrl}/auth/users`);
   }
   getUserRoles(roles: string): Observable<any> {
     return this.http.get<any>(
-      'http://localhost:8081/api/auth/usersss/' + roles
+      `${this.apiUrl}/auth/usersss/` + roles
     );
   }
   getUserStatusRoles(status: string, roles: string): Observable<any> {
     return this.http.get<any>(
-      'http://localhost:8081/api/auth/userstatusroles/' + status + '/' + roles
+      `${this.apiUrl}/auth/userstatusroles/` + status + `/` + roles
     );
   }
   getUserById(id: number): Observable<any> {
     return this.http.get<any>(
-      'http://localhost:8081/api/auth/userdetail/' + id
+      `${this.apiUrl}/auth/userdetail/`+ id
     );
   }
   setter(user: User) {
@@ -117,8 +118,12 @@ export class AuthServiceService {
   }
   active(formData: FormData, id: number): Observable<any> {
     return this.http.put<any>(
-      `http://localhost:8081/api/auth/userstatus/${id}`,
+      `${this.apiUrl}/auth/userstatus/${id}`,
       formData
     );
+  }
+
+  deleteUser(id: number) {
+    return this.http.delete(`${this.apiUrl}/auth/deleteuser/${id}`);
   }
 }

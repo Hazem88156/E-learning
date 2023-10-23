@@ -39,6 +39,8 @@ export class AddUserComponent implements OnInit {
       password: new FormControl('', Validators.required),
       // pwdd: new FormControl('', Validators.required),
       roles: ['ASSISTANT', [Validators.required]],
+      status: ['INACTIVE', [Validators.required]],
+
     });
   }
 

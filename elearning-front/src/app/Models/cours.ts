@@ -5,9 +5,10 @@ import { User } from './users';
 
 export class Cours {
   id!: number;
-  classe!: Classe;
-  user!: User;
-  matiere!: Matiere;
+ // classe!: Classe;
+  //user!: User;
+  //matiere!: Matiere;
   nomCours!: string;
+  duree!:Date;
   documents!: DocumentCours[];
 }

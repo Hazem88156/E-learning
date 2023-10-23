@@ -14,6 +14,7 @@ import { MatiereServiceService } from 'src/app/services/matiere-service.service'
   styleUrls: ['./list-matiere.component.css'],
 })
 export class ListMatiereComponent implements OnInit {
+  p: number = 1;
   matieress: Matiere = new Matiere();
   formModal: any;
   closeResult!: string;
@@ -45,5 +46,11 @@ export class ListMatiereComponent implements OnInit {
   }
   open(content: any) {
     this.modalService.open(content);
+  }
+  key = 'id';
+  reverse: boolean = false;
+  sort(key: any) {
+    this.key = key;
+    this.reverse = !this.reverse;
   }
 }

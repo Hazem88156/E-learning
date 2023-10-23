@@ -19,7 +19,6 @@ import com.elearning.entities.CoursEntity;
 import com.elearning.serviceImpl.CoursService;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 @CrossOrigin(origins = "**")
 @RestController
 @RequestMapping("/api")
@@ -33,12 +32,8 @@ public class CoursController {
 	 {
 		 System.out.println("Ok .............");
       CoursEntity cour = new ObjectMapper().readValue(cours, CoursEntity.class);
-      
       coursService.saveCours(cour);
-		
 		return ResponseEntity.status(HttpStatus.CREATED).body( cour);
-		
-   
 	 }
 	@GetMapping("/cour")
 	public ResponseEntity<List<CoursEntity>> getAllCours() {
@@ -52,22 +47,22 @@ public class CoursController {
         	 cours.setId(id);
              coursService. update( cours);
         	 }
-	@GetMapping("coursdetail/{id}")
+	/*@GetMapping("coursdetail/{id}")
     public CoursDTO courDetail(@PathVariable Long id) {
   	  System.out.println(id);
 	        CoursDTO cour = coursService.CoursById(id);
 	        System.out.println("documents"+cour.getDocuments());
 	        return cour;
-	    }
-	@GetMapping("/cour/user/{userId}")
+	    }*/
+	/*@GetMapping("/cour/user/{userId}")
     public List<CoursEntity> getCoursByUser(@PathVariable Long userId) {
         return coursService.CoursByUser(userId);
-    }
-	@GetMapping("/cour/classe/{classeId}")
+    }*/
+	/*@GetMapping("/cour/classe/{classeId}")
     public List<CoursEntity> getCoursByClasse(@PathVariable Long classeId) {
 		
         return coursService.CoursByClasse(classeId);
-    }
+    }*/
 
 
 }

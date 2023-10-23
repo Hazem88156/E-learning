@@ -88,7 +88,6 @@ export class ListProfesseurComponent implements OnInit {
     this.lastName = this.userss.lastName;
   }
   updateUser(userid: number) {
-    //this.service.getUserById(userid);
     this.router.navigate(['edit-professeur', userid]);
   }
   open(content: any, user: any) {
@@ -193,5 +192,11 @@ export class ListProfesseurComponent implements OnInit {
   sort(key: any) {
     this.key = key;
     this.reverse = !this.reverse;
+  }
+  deleteUser(id: number) {
+    this.service.deleteUser(id).subscribe(() => {
+      // Mettre à jour la liste des users après suppression
+      this.users = this.users.filter(user => user.id !== id);
+    });
   }
 }

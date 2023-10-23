@@ -36,7 +36,7 @@ import com.elearning.repository.UserRepository;
 import com.elearning.serviceImpl.CustomUserDetailsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@CrossOrigin(origins = "**")
+@CrossOrigin()
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -293,6 +293,9 @@ public class AuthController {
  	        UserEntity user = userService.UserEntityById(id);
  	        return user;
  	    }
-      
+	@DeleteMapping("deleteuser/{id}")
+	public void deleteUser(@PathVariable Long id) {
+		userService.deleteUser(id);
+	}
 	
 }

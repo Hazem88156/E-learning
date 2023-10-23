@@ -24,21 +24,22 @@ export class AddCoursComponent implements OnInit {
   reactiveForm!: FormGroup;
   constructor(
     private service: CoursServiceService,
-    private serviceUser: AuthServiceService,
-    private serviceMatiere: MatiereServiceService,
-    private serviceClasse: ClasseServiceService,
+    //private serviceUser: AuthServiceService,
+    //private serviceMatiere: MatiereServiceService,
+    //private serviceClasse: ClasseServiceService,
     private fb: FormBuilder
   ) {
     this.reactiveForm = this.fb.group({
       nomCours: ['', [Validators.required]],
-      user: ['', [Validators.required]],
-      matiere: ['', [Validators.required]],
-      classe: ['', [Validators.required]],
+      duree:[new Date(),[Validators.required]]
+      //user: ['', [Validators.required]],
+      //matiere: ['', [Validators.required]],
+      //classe: ['', [Validators.required]],
     });
   }
 
   ngOnInit(): void {
-    this.serviceUser
+    /*this.serviceUser
       .getUserStatusRoles('ACTIVE', 'PROFESSEUR')
       .toPromise()
       .then((users) => {
@@ -61,11 +62,11 @@ export class AddCoursComponent implements OnInit {
         console.log(classes);
         this.classes = classes;
       });
-    console.log(' liste des matieres' + this.matieres);
+    console.log(' liste des matieres' + this.matieres);*/
   }
-  onselect(user: any) {
+  /*onselect(user: any) {
     this.users = user.id;
-  }
+  }*/
   saveForm(submitForm: FormGroup) {
     this.submitted = true;
 
@@ -74,13 +75,13 @@ export class AddCoursComponent implements OnInit {
     }
     if (submitForm.valid) {
       const cour = submitForm.value as Cours;
-      cour.user = this.users.filter((u) => u.id == submitForm.value.user)[0];
-      cour.matiere = this.matieres.filter(
+      //cour.user = this.users.filter((u) => u.id == submitForm.value.user)[0];
+      /*cour.matiere = this.matieres.filter(
         (m) => m.id == submitForm.value.matiere
-      )[0];
-      cour.classe = this.classes.filter(
+      )[0];*/
+     /* cour.classe = this.classes.filter(
         (c) => c.id == submitForm.value.classe
-      )[0];
+      )[0];*/
       var cours = JSON.stringify(cour);
       console.log(cours);
 
@@ -97,4 +98,5 @@ export class AddCoursComponent implements OnInit {
       );
     }
   }
+
 }

@@ -83,31 +83,32 @@
                     >
                       <thead>
                         <tr>
-                          <th scope="col">Cours</th>
-                          <th scope="col">Classe</th>
+                          <th scope="col" (click)="sort('id')"><span>Cours <i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></span></th>
+                         <!-- <th scope="col">Classe</th>
                           <th scope="col">Matiere</th>
-                          <th scope="col">Professeur</th>
+                          <th scope="col">Professeur</th>-->
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr *ngFor="let cour of cours">
                           <td scope="col">{{ cour.nomCours }}</td>
-                          <td scope="col">
+                          <!--<td scope="col">
                             {{
                               cour.classe
                                 ? cour.classe.nomClasse
                                 : "Pas de classs"
                             }}
-                          </td>
-                          <td scope="col">
+                          </td>-->
+                         <!-- <td scope="col">
                             {{
                               cour.matiere
                                 ? cour.matiere.nomMatiere
                                 : "Pas de matiere"
                             }}
-                          </td>
-                          <td scope="col">
+                          </td>-->
+                          <!--<td scope="col">
                             {{
                               cour.user
                                 ? cour.user.firstName
@@ -118,7 +119,7 @@
                                 ? cour.user.lastName
                                 : "Pas de professeur"
                             }}
-                          </td>
+                          </td>-->
                           <td>
                             <a
                               class="btn btn-primary btn-sm"

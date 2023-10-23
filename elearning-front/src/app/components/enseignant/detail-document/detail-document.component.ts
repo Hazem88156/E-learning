@@ -62,11 +62,11 @@ export class DetailDocumentComponent implements OnInit {
         console.log(this.document);
         this.cour = this.document.cour;
         this.documentName = this.document.documentName;
-        this.professeur = this.cour.user;
+       // this.professeur = this.cour.user;
         this.firstName = this.professeur.firstName;
         this.lastName = this.professeur.lastName;
-        this.matiere = this.cour.matiere;
-        this.classe = this.cour.classe;
+        //this.matiere = this.cour.matiere;
+        //this.classe = this.cour.classe;
         this.nomClasse = this.classe.nomClasse;
         this.nomMatiere = this.matiere.nomMatiere;
       });

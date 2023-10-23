@@ -69,12 +69,12 @@ public class ExamenController {
 	        ExamenEntity examen = examenService.ExamenById(id);
 	        return examen;
 	    }
-	@GetMapping("/examens/cours/{courId}")
+	/*@GetMapping("/examens/cours/{courId}")
 	public ResponseEntity<List<ExamenDTO>> getExamensByCours(@PathVariable Long courId) {
 		System.out.println("Liste de examens pour le cours " + courId);
 	    List<ExamenEntity> examens = examenService.getExamenByCoursId(courId);
 	    List<ExamenDTO>examenss=modelMapperConverter.convertAllToDTO(examens,ExamenDTO.class);
 	    System.out.println(examenss);
 	    return ResponseEntity.ok(examenss);
-	}
+	}*/
 }

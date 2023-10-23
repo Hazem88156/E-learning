@@ -4,22 +4,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
+import com.elearning.entities.CoursEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
 public class MatiereDTO extends MyDTO implements Serializable{
-	public MatiereDTO(Long id, String nomMatiere, List<UserDTO> users) {
+	public MatiereDTO(Long id, String nomMatiere) {
 		super();
 		this.id = id;
 		this.nomMatiere = nomMatiere;
-		this.users = users;
+
 	}
 	
 	public MatiereDTO() {
@@ -30,26 +27,48 @@ public class MatiereDTO extends MyDTO implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String nomMatiere;
-	@JsonIgnore
-	@ManyToMany(mappedBy="matieres",cascade=CascadeType.ALL)
-	List<UserDTO> users=new ArrayList<UserDTO>();
+	private String coeif;
+	private String nbHeure;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<CoursEntity> cours = new ArrayList<>();
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getNomMatiere() {
 		return nomMatiere;
 	}
+
 	public void setNomMatiere(String nomMatiere) {
 		this.nomMatiere = nomMatiere;
 	}
-	public List<UserDTO> getUsers() {
-		return users;
+
+	public String getCoeif() {
+		return coeif;
 	}
-	public void setUsers(List<UserDTO> users) {
-		this.users = users;
+
+	public void setCoeif(String coeif) {
+		this.coeif = coeif;
 	}
-	
+
+	public String getNbHeure() {
+		return nbHeure;
+	}
+
+	public void setNbHeure(String nbHeure) {
+		this.nbHeure = nbHeure;
+	}
+
+	public List<CoursEntity> getCours() {
+		return cours;
+	}
+
+	public void setCours(List<CoursEntity> cours) {
+		this.cours = cours;
+	}
 }

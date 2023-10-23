@@ -9,5 +9,5 @@ import com.elearning.entities.DocumentEntity;
 
 
 public interface DocumentRepository extends JpaRepository<DocumentEntity, Long>{
-	 List<DocumentEntity> findByCourUserId(Long userId);
+	 //List<DocumentEntity> findByCourUserId(Long userId);
 }

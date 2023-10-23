@@ -2,6 +2,7 @@ package com.elearning.config;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -49,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.httpBasic().disable().csrf().disable().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-				.antMatchers("/api/auth/login").permitAll().antMatchers("/api/auth/users").permitAll().
+				.antMatchers("/api/auth/login").permitAll().antMatchers("/api/auth/register").permitAll().antMatchers("/api/auth/users").permitAll().
 				antMatchers("/api/auth/usersss").permitAll().antMatchers("/api/Document/**").permitAll().
 				antMatchers("/api/Vedio/**").permitAll()
 				.antMatchers("/api/auth/Images/**").permitAll().antMatchers("/api/auth/users/**").permitAll().
@@ -88,12 +89,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	public UserDetailsService mysqlUserDetails() {
 		return new CustomUserDetailsService();
 	}
-	@Bean
+
+/*	@Bean
 	public FilterRegistrationBean<CorsFilter> simpleCorsFilter() {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
-		config.setAllowedOrigins(Arrays.asList("http://localhost:4200","http://localhost:4200","http://localhost:8200","https://localhost:8200","http://localhost:4201","https://localhost:4201"));
+		List<String> allowedOrigins = Arrays.asList(
+				"*"
+		);
+		config.setAllowedOrigins(allowedOrigins);
 		config.setAllowedMethods(Collections.singletonList("*"));
 		config.setAllowedHeaders(Collections.singletonList("*"));
 		config.addExposedHeader(
@@ -103,7 +108,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<CorsFilter>(new CorsFilter(source));
 		bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
 		return bean;
-	}
+	}*/
 	
 	 
 }

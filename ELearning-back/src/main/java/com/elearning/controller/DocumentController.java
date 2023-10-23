@@ -106,25 +106,25 @@ public Optional<DocumentEntity> documentDetail(@PathVariable Long id) {
 	  Optional<DocumentEntity> document = documentService.documentfindById(id);
        return document;
    }
-@GetMapping(path="/Document/{id}")
+/*@GetMapping(path="/Document/{id}")
 public byte[] getPhoto(@PathVariable("id") Long id) throws Exception{
 	 System.out.println("Get all Document ");
 	 DocumentEntity Document   =documentService.documentfindById(id).get();
 	 return Files.readAllBytes(Paths.get(context.getRealPath("/Documents/")+Document.getDocumentFile()));
-}
-@GetMapping("/document/{userId}")
+}*/
+/*@GetMapping("/document/{userId}")
 public ResponseEntity<List<DocumentEntity>> getDocumentsByProfesseur(@PathVariable Long userId) {
     List<DocumentEntity> documents = documentService.getDocumentsByUser(userId);
    
     return ResponseEntity.ok(documents);
-}
-@GetMapping("/documents/cours/{courId}")
+}*/
+/*@GetMapping("/documents/cours/{courId}")
 public ResponseEntity<List<DocumentDTO>> getDocumentsByCours(@PathVariable Long courId) {
 	System.out.println("Liste de documents pour le cours " + courId);
     List<DocumentEntity> documents = documentService.getDocumentsByCoursId(courId);
     List<DocumentDTO>documentss=modelMapperConverter.convertAllToDTO(documents,DocumentDTO.class);
     System.out.println(documentss);
     return ResponseEntity.ok(documentss);
-}
+}*/
 
 }

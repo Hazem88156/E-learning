@@ -28,4 +28,10 @@ export class ListCourComponent implements OnInit {
   updateCour(courid: number) {
     this.router.navigate(['update-cour', courid]);
   }
+  key = 'id';
+  reverse: boolean = false;
+  sort(key: any) {
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
 }

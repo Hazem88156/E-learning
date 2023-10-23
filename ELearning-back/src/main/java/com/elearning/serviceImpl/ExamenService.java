@@ -8,12 +8,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.elearning.dto.CoursDTO;
-import com.elearning.entities.CoursEntity;
 import com.elearning.entities.ExamenEntity;
 import com.elearning.entities.QuestionEntity;
-import com.elearning.entities.VedioEntity;
 import com.elearning.repository.CoursRepository;
 import com.elearning.repository.ExamenRepository;
 import com.elearning.repository.QuestionRepository;
@@ -70,13 +66,13 @@ public class ExamenService {
 		
 		
 	}
-	 public List<ExamenEntity> getExamenByCoursId(Long id) {
+	 /*public List<ExamenEntity> getExamenByCoursId(Long id) {
 	 	    CoursEntity cours = coursRepository.findById(id).orElse(null);
 	 	    if (cours != null) {
 	 	        List<ExamenEntity> examens = cours.getExamens();
 	 	        return examens;
 	 	    }
 	 	    return new ArrayList<>();
-	 	}
+	 	}*/
 
 }

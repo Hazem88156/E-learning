@@ -15,6 +15,7 @@ import { AuthServiceService } from 'src/app/services/auth-service.service';
   styleUrls: ['./list-etudaint.component.css'],
 })
 export class ListEtudaintComponent implements OnInit {
+  p: number = 1;
   firstName!: string;
   lastName!: string;
   submitted = false;
@@ -120,5 +121,17 @@ export class ListEtudaintComponent implements OnInit {
         this.users = users;
       });
     console.log(' liste users' + this.users);
+  }
+  key = 'id';
+  reverse: boolean = false;
+  sort(key: any) {
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
+  deleteUser(id: number) {
+    this.service.deleteUser(id).subscribe(() => {
+      // Mettre à jour la liste des produits après suppression
+      this.users = this.users.filter(user => user.id !== id);
+    });
   }
 }

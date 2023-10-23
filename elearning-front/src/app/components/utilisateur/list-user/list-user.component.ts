@@ -25,6 +25,7 @@ export class ListUserComponent implements OnInit {
   userss: User = new User();
   formModal: any;
   closeResult!: string;
+  p: number = 1;
   modalOptions!: NgbModalOptions;
   constructor(
     private service: AuthServiceService,
@@ -115,5 +116,17 @@ export class ListUserComponent implements OnInit {
         this.users = users;
       });
     console.log(' liste users' + this.users);
+  }
+  key = 'id';
+  reverse: boolean = false;
+  sort(key: any) {
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
+  deleteUser(id: number) {
+    this.service.deleteUser(id).subscribe(() => {
+      // Mettre à jour la liste des produits après suppression
+      this.users = this.users.filter(user => user.id !== id);
+    });
   }
 }

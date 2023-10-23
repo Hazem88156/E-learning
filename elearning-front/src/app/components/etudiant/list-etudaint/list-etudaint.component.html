@@ -65,7 +65,7 @@
                 <div class="card recent-sales overflow-auto">
                   <div class="card-body">
                     <h5 class="card-title">
-                      Utilisateur <span>| Etudiant</span>
+                      Utilisateurs <span>| Etudiants</span>
                     </h5>
                     <div class="row">
                       <div class="col-lg-2"></div>
@@ -117,19 +117,29 @@
                     >
                       <thead>
                         <tr>
-                          <th scope="col">Img</th>
-                          <th scope="col">Nom</th>
-                          <th scope="col">Prenom</th>
-                          <th scope="col">Email</th>
-                          <th scope="col">Telephone</th>
-                          <th scope="col">N°cin</th>
-                          <th scope="col">Classe</th>
-                          <th scope="col">Status</th>
-                          <th scope="col">Action</th>
+                          <th scope="col" (click)="sort('id')"><span>Img <i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></span></th>
+                          <th scope="col" (click)="sort('id')"><span>Nom <i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></span></th>
+                          <th scope="col" (click)="sort('id')">Prenom <span><i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></span></th>
+                          <th scope="col"(click)="sort('id')">Email <span><i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></span></th>
+                          <th scope="col"(click)="sort('id')">Telephone <span><i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></span></th>
+                          <th scope="col"(click)="sort('id')">N°cin <span><i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></span></th>
+                          <th scope="col"(click)="sort('id')">Classe <span><i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></span></th>
+                          <th scope="col"(click)="sort('id')">Status <span><i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></span></th>
+                          <th scope="col"(click)="sort('id')">Action <i class="bi bi-caret-up-fill"></i
+                            ><i class="bi bi-caret-down-fill"></i></th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let user of users">
+                        <tr *ngFor="let user of users | orderBy: key:reverse
+                        | paginate: { itemsPerPage: 5, currentPage: p }">
                           <td scope="col">
                             <img
                               class="card-img-top img-responsive"
@@ -327,7 +337,7 @@
                               <button
                                 type="button"
                                 class="btn btn-danger"
-                                (click)="c('')"
+                                (click)="deleteUser(user.id)"
                               >
                                 Supprimer
                               </button>
@@ -402,6 +412,16 @@
                           </ng-template>
                         </tr>
                       </tbody>
+                      <tfoot>
+                        <tr>
+                          <td colspan="12">
+                            <pagination-controls
+                              style="text-align: center;"
+                              (pageChange)="p = $event"
+                            ></pagination-controls>
+                          </td>
+                        </tr>
+                      </tfoot>
                     </table>
                   </div>
                 </div>
