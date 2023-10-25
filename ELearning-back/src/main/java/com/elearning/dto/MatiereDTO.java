@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.elearning.entities.ClasseEntity;
 import com.elearning.entities.CoursEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,15 +22,13 @@ public class MatiereDTO extends MyDTO implements Serializable{
 	
 	public MatiereDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String nomMatiere;
-	private String coeif;
-	private String nbHeure;
-	@OneToMany(cascade = CascadeType.ALL)
+	private Double coeif;
+	private Double nbHeure;
+
+
 	private List<CoursEntity> cours = new ArrayList<>();
 
 	public Long getId() {
@@ -48,19 +47,19 @@ public class MatiereDTO extends MyDTO implements Serializable{
 		this.nomMatiere = nomMatiere;
 	}
 
-	public String getCoeif() {
+	public Double getCoeif() {
 		return coeif;
 	}
 
-	public void setCoeif(String coeif) {
+	public void setCoeif(Double coeif) {
 		this.coeif = coeif;
 	}
 
-	public String getNbHeure() {
+	public Double getNbHeure() {
 		return nbHeure;
 	}
 
-	public void setNbHeure(String nbHeure) {
+	public void setNbHeure(Double nbHeure) {
 		this.nbHeure = nbHeure;
 	}
 

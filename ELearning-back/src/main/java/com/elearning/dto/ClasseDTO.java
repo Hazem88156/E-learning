@@ -15,7 +15,7 @@ public class ClasseDTO extends MyDTO implements Serializable{
 	private String nomClasse;
 	private String annee;
 	private String section;
-	private List<MatiereEntity> matieres =new ArrayList<MatiereEntity>();
+
 
 	public Long getId() {
 		return id;
@@ -49,11 +49,5 @@ public class ClasseDTO extends MyDTO implements Serializable{
 		this.section = section;
 	}
 
-	public List<MatiereEntity> getMatieres() {
-		return matieres;
-	}
 
-	public void setMatieres(List<MatiereEntity> matieres) {
-		this.matieres = matieres;
-	}
 }

@@ -1,5 +1,6 @@
 package com.elearning.entities;
 
+import com.elearning.dto.ClasseDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -17,8 +18,10 @@ public class MatiereEntity extends MyEntity implements Serializable {
 
     private Long id;
     private String nomMatiere;
-    private String coeif;
-    private String nbHeure;
+    private Double coeif;
+    private Double nbHeure;
+
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<CoursEntity> cours = new ArrayList<>();
 
@@ -46,20 +49,21 @@ public class MatiereEntity extends MyEntity implements Serializable {
         this.cours = cours;
     }
 
-    public String getNbHeure() {
-        return nbHeure;
-    }
-
-    public void setNbHeure(String nbHeure) {
-        this.nbHeure = nbHeure;
-    }
-
-    public String getCoeif() {
+    public Double getCoeif() {
         return coeif;
     }
 
-    public void setCoeif(String coeif) {
+    public void setCoeif(Double coeif) {
         this.coeif = coeif;
     }
+
+    public Double getNbHeure() {
+        return nbHeure;
+    }
+
+    public void setNbHeure(Double nbHeure) {
+        this.nbHeure = nbHeure;
+    }
+
 
 }

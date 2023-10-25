@@ -21,7 +21,12 @@ public class CoursDTO extends MyDTO implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "prof_id") // La colonne de jointure dans la table Employee
 	private UserEntity user;
-
+	@ManyToOne
+	@JoinColumn(name = "classe_id") // La colonne de jointure dans la table Employee
+	private ClasseEntity classe; // La colonne de jointure dans la table Employee
+	@ManyToOne
+	@JoinColumn(name = "matiere_id") // La colonne de jointure dans la table Employee
+	private MatiereEntity matiere;
 	public Long getId() {
 		return id;
 	}
@@ -44,6 +49,19 @@ public class CoursDTO extends MyDTO implements Serializable{
 		this.user = user;
 	}
 
+	public ClasseEntity getClasse() {
+		return classe;
+	}
 
+	public void setClasse(ClasseEntity classe) {
+		this.classe = classe;
+	}
 
+	public MatiereEntity getMatiere() {
+		return matiere;
+	}
+
+	public void setMatiere(MatiereEntity matiere) {
+		this.matiere = matiere;
+	}
 }

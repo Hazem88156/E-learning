@@ -1,35 +1,51 @@
 package com.elearning.controller;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.elearning.entities.ClasseEntity;
+import com.elearning.entities.MatiereEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.elearning.dto.MatiereDTO;
 import com.elearning.service.MatiereService;
 
-@CrossOrigin(origins = "**")
+@CrossOrigin()
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/matiere")
 public class MatiereController {
-	@Autowired
-	private MatiereService matiereService;
-	@GetMapping("/matieres")
+	private final MatiereService matiereService;
+
+	public MatiereController(MatiereService matiereService) {
+		this.matiereService = matiereService;
+	}
+
+	@GetMapping()
 	public ResponseEntity<List<MatiereDTO>> getAllMatieres() {
 		return ResponseEntity.ok(matiereService.findAllMatieres());
 	}
-	/*
-	 * method to add user 
-	 */
-	@PostMapping("/matiere")
+
+	@PostMapping()
     public ResponseEntity<MatiereDTO> create(@RequestBody MatiereDTO matiereDTO) {
-    	matiereService.addMatiere(matiereDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(matiereDTO);
+		return ResponseEntity.status(HttpStatus.CREATED).body(matiereService.saveMatiere(matiereDTO));
     }
+
+	@PutMapping("{id}")
+	public ResponseEntity<MatiereDTO> update(@RequestBody MatiereDTO matiereDTO, @PathVariable("id") Long id) {
+		return ResponseEntity.of(matiereService.updateMatiere(id, matiereDTO));
+	}
+	
+
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable("id") Long id) {
+		matiereService.deleteMatiere(id);
+	}
+
+	@GetMapping("{id}")
+	public ResponseEntity<MatiereEntity> matiereDetail(@PathVariable Long id) {
+		System.out.println(id);
+		Optional<MatiereEntity> matiere = matiereService.findById(id);
+		return ResponseEntity.of(matiere);
+	}
 }
