@@ -1,47 +1,42 @@
 package com.elearning.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import com.elearning.dto.DocumentDTO;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "cours")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class CoursEntity extends MyEntity implements Serializable{
 
-	public CoursEntity(Long id ,String nomCours) {
-		super();
+	public CoursEntity() {
+	}
+
+	public CoursEntity(Long id, String nomCours, Date heureDebut, Date heureFin, UserEntity user, ClasseEntity classe, MatiereEntity matiere) {
 		this.id = id;
 		this.nomCours = nomCours;
+		this.heureDebut = heureDebut;
+		this.heureFin = heureFin;
+		this.user = user;
+		this.classe = classe;
+		this.matiere = matiere;
+	}
 
-	}
-	public CoursEntity() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String nomCours;
 
+	@Column(unique = true)
+	private String nomCours;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private Date date;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+	private Date heureDebut;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+	private Date heureFin;
 
 	@ManyToOne
 	@JoinColumn(name = "prof_id") // La colonne de jointure dans la table Employee
@@ -88,5 +83,29 @@ public class CoursEntity extends MyEntity implements Serializable{
 
 	public void setMatiere(MatiereEntity matiere) {
 		this.matiere = matiere;
+	}
+
+	public Date getHeureDebut() {
+		return heureDebut;
+	}
+
+	public void setHeureDebut(Date heureDebut) {
+		this.heureDebut = heureDebut;
+	}
+
+	public Date getHeureFin() {
+		return heureFin;
+	}
+
+	public void setHeureFin(Date heureFin) {
+		this.heureFin = heureFin;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 }

@@ -1,12 +1,6 @@
 package com.elearning.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.ManyToMany;
-import com.elearning.entities.MatiereEntity;
-import com.elearning.entities.UserEntity;
 
 public class ClasseDTO extends MyDTO implements Serializable{
 	
@@ -15,7 +9,6 @@ public class ClasseDTO extends MyDTO implements Serializable{
 	private String nomClasse;
 	private String annee;
 	private String section;
-
 
 	public Long getId() {
 		return id;
@@ -48,6 +41,4 @@ public class ClasseDTO extends MyDTO implements Serializable{
 	public void setSection(String section) {
 		this.section = section;
 	}
-
-
 }

@@ -1,16 +1,15 @@
 package com.elearning.dto;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
+import com.elearning.entities.MatiereEntity;
+import com.elearning.entities.RoleEntity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-
-import com.elearning.entities.MatiereEntity;
-import com.elearning.entities.RoleEntity;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDetailDTO extends MyDTO implements Serializable{
 	
@@ -23,7 +22,7 @@ public class UserDetailDTO extends MyDTO implements Serializable{
 
 	public UserDetailDTO(Long id, String email, String password, String firstName, String lastName, String username,
 			RoleEntity roles, String addresse, String telephone, String imgfile, String apropos, String ncin,
-			String status, boolean isselected, List<MatiereEntity> matieres) {
+			String status, List<MatiereEntity> matieres) {
 		super();
 		Id = id;
 		this.email = email;
@@ -38,7 +37,6 @@ public class UserDetailDTO extends MyDTO implements Serializable{
 		this.apropos = apropos;
 		this.ncin = ncin;
 		this.status = status;
-		this.isselected = isselected;
 		this.matieres = matieres;
 	}
 
@@ -56,8 +54,7 @@ public class UserDetailDTO extends MyDTO implements Serializable{
 	private String apropos;
 	private String ncin;
 	private String status;
-	private boolean isselected;
-	
+
 	
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name = "user_matiere", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "matiere_id"))
@@ -191,16 +188,6 @@ public class UserDetailDTO extends MyDTO implements Serializable{
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-
-	public boolean isIsselected() {
-		return isselected;
-	}
-
-
-	public void setIsselected(boolean isselected) {
-		this.isselected = isselected;
 	}
 
 

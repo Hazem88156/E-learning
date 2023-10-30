@@ -1,20 +1,16 @@
 package com.elearning.serviceImpl;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.transaction.Transactional;
-
-import com.elearning.dto.ClasseDTO;
-import com.elearning.entities.ClasseEntity;
-import com.elearning.repository.ClasseRepository;
-import org.springframework.stereotype.Service;
-
 import com.elearning.dto.MatiereDTO;
 import com.elearning.entities.MatiereEntity;
 import com.elearning.helper.ModelMapperConverter;
+import com.elearning.repository.ClasseRepository;
 import com.elearning.repository.MatiereRepository;
 import com.elearning.service.MatiereService;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -47,7 +43,6 @@ public class MatiereServiceImpl implements MatiereService{
 			return Optional.empty();
 		}
 		MatiereEntity matiereEntity = matiereRepository.getById(matiereDTO.getId());
-		matiereEntity.setCours(matiereDTO.getCours());
 		matiereEntity.setNomMatiere(matiereDTO.getNomMatiere());
 		matiereEntity.setCoeif(matiereDTO.getCoeif());
 		matiereEntity.setNbHeure(matiereDTO.getNbHeure());

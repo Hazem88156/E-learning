@@ -1,14 +1,6 @@
 package com.elearning.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.*;
-
-import com.elearning.entities.ClasseEntity;
-import com.elearning.entities.CoursEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
@@ -27,9 +19,6 @@ public class MatiereDTO extends MyDTO implements Serializable{
 	private String nomMatiere;
 	private Double coeif;
 	private Double nbHeure;
-
-
-	private List<CoursEntity> cours = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -61,13 +50,5 @@ public class MatiereDTO extends MyDTO implements Serializable{
 
 	public void setNbHeure(Double nbHeure) {
 		this.nbHeure = nbHeure;
-	}
-
-	public List<CoursEntity> getCours() {
-		return cours;
-	}
-
-	public void setCours(List<CoursEntity> cours) {
-		this.cours = cours;
 	}
 }

@@ -1,32 +1,28 @@
 package com.elearning.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
 
-import javax.persistence.*;
-
-import com.elearning.entities.ClasseEntity;
-import com.elearning.entities.DocumentEntity;
-import com.elearning.entities.MatiereEntity;
-import com.elearning.entities.UserEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class CoursDTO extends MyDTO implements Serializable{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String nomCours;
 
-	@ManyToOne
-	@JoinColumn(name = "prof_id") // La colonne de jointure dans la table Employee
-	private UserEntity user;
-	@ManyToOne
-	@JoinColumn(name = "classe_id") // La colonne de jointure dans la table Employee
-	private ClasseEntity classe; // La colonne de jointure dans la table Employee
-	@ManyToOne
-	@JoinColumn(name = "matiere_id") // La colonne de jointure dans la table Employee
-	private MatiereEntity matiere;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+	private Date heureDebut;
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private Date date;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+	private Date heureFin;
+
+	private UserDTO user;
+	private ClasseDTO classe;
+	private MatiereDTO matiere;
+
 	public Long getId() {
 		return id;
 	}
@@ -41,27 +37,51 @@ public class CoursDTO extends MyDTO implements Serializable{
 		this.nomCours = nomCours;
 	}
 
-	public UserEntity getUser() {
+	public Date getHeureDebut() {
+		return heureDebut;
+	}
+
+	public void setHeureDebut(Date heureDebut) {
+		this.heureDebut = heureDebut;
+	}
+
+	public Date getHeureFin() {
+		return heureFin;
+	}
+
+	public void setHeureFin(Date heureFin) {
+		this.heureFin = heureFin;
+	}
+
+	public UserDTO getUser() {
 		return user;
 	}
 
-	public void setUser(UserEntity user) {
+	public void setUser(UserDTO user) {
 		this.user = user;
 	}
 
-	public ClasseEntity getClasse() {
+	public ClasseDTO getClasse() {
 		return classe;
 	}
 
-	public void setClasse(ClasseEntity classe) {
-		this.classe = classe;
+	public void setClasse(ClasseDTO classe) {
+ 		this.classe = classe;
 	}
 
-	public MatiereEntity getMatiere() {
+	public MatiereDTO getMatiere() {
 		return matiere;
 	}
 
-	public void setMatiere(MatiereEntity matiere) {
+	public void setMatiere(MatiereDTO matiere) {
 		this.matiere = matiere;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 }

@@ -1,9 +1,9 @@
 package com.elearning.entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
 
 
 @Entity
@@ -16,6 +16,8 @@ public class ClasseEntity extends MyEntity implements Serializable {
 	@Column(unique = true, nullable = false)
     private String nomClasse;
 	private String section;
+	@OneToMany(mappedBy = "classe")
+	private List<CoursEntity> cours;
 	private String annee;
     @OneToMany(cascade = CascadeType.ALL)
     private List<MatiereEntity> matieres = new ArrayList<>();
@@ -53,6 +55,14 @@ public class ClasseEntity extends MyEntity implements Serializable {
 
 	public void setNomClasse(String nomClasse) {
 		this.nomClasse = nomClasse;
+	}
+
+	public List<CoursEntity> getCours() {
+		return cours;
+	}
+
+	public void setCours(List<CoursEntity> cours) {
+		this.cours = cours;
 	}
 }
 
