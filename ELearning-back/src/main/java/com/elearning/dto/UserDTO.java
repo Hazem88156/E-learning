@@ -1,6 +1,6 @@
 package com.elearning.dto;
 
-import com.elearning.entities.RoleEntity;
+import com.elearning.entities.Role;
 
 import java.io.Serializable;
 
@@ -8,8 +8,8 @@ public class UserDTO extends MyDTO implements Serializable {
 
 
     public UserDTO(Long id, String email, String password, String firstName, String lastName, String username,
-                   RoleEntity roles, String addresse, String telephone, String imgfile, String apropos, String ncin,
-                   String status,  ClasseDTO classesEtudiant) {
+                   Role roles, String addresse, String telephone, String imgfile, String apropos, String ncin,
+                   String status) {
         super();
         this.id = id;
         this.email = email;
@@ -24,12 +24,10 @@ public class UserDTO extends MyDTO implements Serializable {
         this.apropos = apropos;
         this.ncin = ncin;
         this.status = status;
-        this.classesEtudiant = classesEtudiant;
     }
 
     public UserDTO() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     private Long id;
@@ -38,23 +36,13 @@ public class UserDTO extends MyDTO implements Serializable {
     private String firstName;
     private String lastName;
     private String username;
-    private RoleEntity roles;
+    private Role roles;
     private String addresse;
     private String telephone;
     private String imgfile;
     private String apropos;
     private String ncin;
     private String status;
-
-	public ClasseDTO getClassesEtudiant() {
-		return classesEtudiant;
-	}
-
-	public void setClassesEtudiant(ClasseDTO classesEtudiant) {
-		this.classesEtudiant = classesEtudiant;
-	}
-
-	private ClasseDTO classesEtudiant;
 
     public String getEmail() {
         return email;
@@ -96,11 +84,11 @@ public class UserDTO extends MyDTO implements Serializable {
         this.username = username;
     }
 
-    public RoleEntity getRoles() {
+    public Role getRoles() {
         return roles;
     }
 
-    public void setRoles(RoleEntity roles) {
+    public void setRoles(Role roles) {
         this.roles = roles;
     }
 
@@ -159,4 +147,6 @@ public class UserDTO extends MyDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+
 }

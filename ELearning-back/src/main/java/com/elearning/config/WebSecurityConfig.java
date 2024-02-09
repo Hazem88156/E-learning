@@ -1,20 +1,12 @@
 package com.elearning.config;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-
+import com.elearning.serviceImpl.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -22,11 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
-import com.elearning.serviceImpl.CustomUserDetailsService;
+import javax.servlet.http.HttpServletResponse;
 
 
 
@@ -50,11 +39,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.httpBasic().disable().csrf().disable().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
+				//.antMatchers("/api/etudiant/**").permitAll()
 				.antMatchers("/api/auth/login").permitAll().antMatchers("/api/auth/register").permitAll().antMatchers("/api/auth/users").permitAll().
-				antMatchers("/api/auth/usersss").permitAll().antMatchers("/api/Document/**").permitAll().
-				antMatchers("/api/Vedio/**").permitAll()
+				antMatchers("/api/auth/usersss").permitAll().antMatchers("/api/Document/**").permitAll().antMatchers("/api/Cours/**").permitAll().
+				antMatchers("/api/Vedio/**").permitAll().antMatchers("/api/auth/admin").permitAll().antMatchers("/api/Tp/**").permitAll()
 				.antMatchers("/api/auth/Images/**").permitAll().antMatchers("/api/auth/users/**").permitAll().
 				antMatchers("/api/auth/userstatusroles/**").permitAll().antMatchers("/api/classe/**").permitAll()
+				.antMatchers("/api/auth/prof").permitAll().antMatchers("/api/auth/etudiant").permitAll().antMatchers("/api/auth/assistant").permitAll()
 				.antMatchers("/api/users").hasAuthority("ASSISTANT").anyRequest().authenticated().and().csrf()
 				.disable().exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint()).and()
 				.apply(new JwtConfigurer(jwtTokenProvider));

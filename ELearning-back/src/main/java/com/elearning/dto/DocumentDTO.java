@@ -1,19 +1,10 @@
 package com.elearning.dto;
 
-import java.io.Serializable;
-
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
-import com.elearning.entities.ClasseEntity;
-import com.elearning.entities.CoursEntity;
-import com.elearning.entities.MatiereEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import java.io.Serializable;
 
 
 public class DocumentDTO extends MyDTO implements Serializable{
@@ -23,13 +14,12 @@ public class DocumentDTO extends MyDTO implements Serializable{
 	private Long id;
 	private String documentName;
 	private String documentFile;
+	@Column(length=10000000)
+	private String recap;
     
-	@ManyToOne(fetch=FetchType.LAZY)
-	private CoursEntity cour;
-	@ManyToOne(cascade =CascadeType.ALL)
-	private ClasseEntity classe;
-	@ManyToOne(cascade =CascadeType.ALL)
-	private MatiereEntity matiere;
+
+	private CoursDTO cour;
+
 	public Long getId() {
 		return id;
 	}
@@ -45,26 +35,24 @@ public class DocumentDTO extends MyDTO implements Serializable{
 	public void setDocumentFile(String documentFile) {
 		this.documentFile = documentFile;
 	}
-	public ClasseEntity getClasse() {
-		return classe;
-	}
-	public void setClasse(ClasseEntity classe) {
-		this.classe = classe;
-	}
-	public MatiereEntity getMatiere() {
-		return matiere;
-	}
-	public void setMatiere(MatiereEntity matiere) {
-		this.matiere = matiere;
-	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public CoursEntity getCour() {
+	public CoursDTO getCour() {
 		return cour;
 	}
-	public void setCour(CoursEntity cour) {
+	public void setCour(CoursDTO cour) {
 		this.cour = cour;
 	}
-	
+
+	public String getRecap() {
+		return recap;
+	}
+
+	public void setRecap(String recap) {
+		this.recap = recap;
+	}
+
+
 }

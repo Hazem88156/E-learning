@@ -1,28 +1,20 @@
 package com.elearning.dto;
 
-import com.elearning.entities.MatiereEntity;
-import com.elearning.entities.RoleEntity;
+import com.elearning.entities.Role;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserDetailDTO extends MyDTO implements Serializable{
 	
 	
 	public UserDetailDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 
 	public UserDetailDTO(Long id, String email, String password, String firstName, String lastName, String username,
-			RoleEntity roles, String addresse, String telephone, String imgfile, String apropos, String ncin,
-			String status, List<MatiereEntity> matieres) {
+                         Role roles, String addresse, String telephone, String imgfile, String apropos, String ncin,
+                         String status) {
 		super();
 		Id = id;
 		this.email = email;
@@ -37,7 +29,6 @@ public class UserDetailDTO extends MyDTO implements Serializable{
 		this.apropos = apropos;
 		this.ncin = ncin;
 		this.status = status;
-		this.matieres = matieres;
 	}
 
 
@@ -47,18 +38,13 @@ public class UserDetailDTO extends MyDTO implements Serializable{
 	private String firstName;
 	private String lastName;
 	private String username;
-	private RoleEntity roles;
+	private Role roles;
 	private String addresse;
 	private String telephone;
 	private String imgfile;
 	private String apropos;
 	private String ncin;
 	private String status;
-
-	
-	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name = "user_matiere", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "matiere_id"))
-	List<MatiereEntity> matieres=new ArrayList<>();
 
 
 	public Long getId() {
@@ -121,12 +107,12 @@ public class UserDetailDTO extends MyDTO implements Serializable{
 	}
 
 
-	public RoleEntity getRoles() {
+	public Role getRoles() {
 		return roles;
 	}
 
 
-	public void setRoles(RoleEntity roles) {
+	public void setRoles(Role roles) {
 		this.roles = roles;
 	}
 
@@ -188,16 +174,6 @@ public class UserDetailDTO extends MyDTO implements Serializable{
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-
-	public List<MatiereEntity> getMatieres() {
-		return matieres;
-	}
-
-
-	public void setMatieres(List<MatiereEntity> matieres) {
-		this.matieres = matieres;
 	}
 
 	

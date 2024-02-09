@@ -1,7 +1,12 @@
 package com.elearning.serviceImpl;
 
 import com.elearning.dto.dashboard.StatCountDto;
-import com.elearning.repository.*;
+import com.elearning.repository.ClasseRepository;
+import com.elearning.repository.CoursRepository;
+import com.elearning.repository.MatiereRepository;
+import com.elearning.repository.users.EtudiantRepository;
+import com.elearning.repository.users.ProfRepository;
+import com.elearning.repository.users.UserRepository;
 import com.elearning.service.DashboardService;
 import org.springframework.stereotype.Service;
 

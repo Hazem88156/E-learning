@@ -2,11 +2,14 @@ package com.elearning.serviceImpl;
 
 import com.elearning.dto.UserDTO;
 import com.elearning.dto.UserDetailDTO;
-import com.elearning.entities.RoleEntity;
-import com.elearning.entities.UserEntity;
+import com.elearning.dto.etudiant.EtudiantDTO;
+import com.elearning.entities.Role;
+import com.elearning.entities.users.EtudiantEntity;
+import com.elearning.entities.users.UserEntity;
 import com.elearning.helper.ModelMapperConverter;
 import com.elearning.repository.MatiereRepository;
-import com.elearning.repository.UserRepository;
+import com.elearning.repository.users.EtudiantRepository;
+import com.elearning.repository.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,6 +30,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private EtudiantRepository etudiantRepository;
+    @Autowired
     private MatiereRepository matiereRepository;
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
@@ -43,7 +48,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     public void saveUser(UserEntity user) {
-        user.setEnabled(true);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
@@ -59,7 +63,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
     }
 
-    private List<GrantedAuthority> getUserAuthority(RoleEntity userRoles) {
+    private List<GrantedAuthority> getUserAuthority(Role userRoles) {
         Set<GrantedAuthority> roles = new HashSet<GrantedAuthority>();
         roles.add(new SimpleGrantedAuthority(userRoles + ""));
 
@@ -88,21 +92,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (userr.getImgfile() != null) {
             u.setImgfile(userr.getImgfile());
         }
-		
-		
-		
-		/*for(MatiereEntity m : userr.getMatieres()) {
-			MatiereEntity matiere = matiereRepository.findById(m.getId()).get();
-			if (!matiere.getUsers().contains(u))
-			{
-				matiere.getUsers().add(u);
-				
-			}
-			matiereRepository.save(matiere);
-		}*/
-
         userRepository.save(u);
-
     }
 
     public void updateEtudiant(UserEntity userr) {
@@ -116,14 +106,11 @@ public class CustomUserDetailsService implements UserDetailsService {
         u.setLastName(userr.getLastName());
         u.setApropos(userr.getApropos());
         u.setStatus(userr.getStatus());
-        u.setClassesEtudiant(userr.getClassesEtudiant());
         u.setNcin(userr.getNcin());
         u.setTelephone(userr.getTelephone());
         if (userr.getImgfile() != null) {
             u.setImgfile(userr.getImgfile());
         }
-
-
         userRepository.save(u);
 
 
@@ -165,17 +152,33 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 
     }
+    public Optional<EtudiantDTO> EtudiantEntityById(Long id) {
+        if (! userRepository.existsById(id)){
+            return Optional.empty();
+        }
+        EtudiantEntity user = etudiantRepository.getById(id);
+        System.out.println(user + "jjjjjjjj");
+        return Optional.of(ModelMapperConverter.converToDTO(user, EtudiantDTO.class));
 
-    public List<UserDTO> findByStatusAndRoles(String status, RoleEntity roles) {
+
+    }
+
+    public List<UserDTO> findByStatusAndRoles(String status, Role roles) {
         return userRepository.findByStatusAndRoles(status, roles).stream()
                 .map(userEntity -> ModelMapperConverter.converToDTO(userEntity, UserDTO.class))
                 .collect(Collectors.toList());
     }
 
-    public List<UserDTO> findByRoles(RoleEntity roles) {
+    public List<UserDTO> findByRoles(Role roles) {
         System.out.println("Get all Users roles 11111...");
         return userRepository.findByRoles(roles).stream()
                 .map(userEntity -> ModelMapperConverter.converToDTO(userEntity, UserDTO.class))
+                .collect(Collectors.toList());
+    }
+    public List<EtudiantDTO> findByRolesEtudiant(Role roles) {
+        System.out.println("Get all Users roles 11111...");
+        return userRepository.findByRoles(roles).stream()
+                .map(etudiantEntity -> ModelMapperConverter.converToDTO(etudiantEntity, EtudiantDTO.class))
                 .collect(Collectors.toList());
     }
 

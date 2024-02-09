@@ -1,21 +1,20 @@
 package com.elearning.serviceImpl;
 
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.elearning.dto.ClasseDTO;
 import com.elearning.entities.ClasseEntity;
 import com.elearning.helper.ModelMapperConverter;
 import com.elearning.repository.ClasseRepository;
 import com.elearning.repository.MatiereRepository;
-import com.elearning.repository.UserRepository;
+import com.elearning.repository.users.EtudiantRepository;
+import com.elearning.repository.users.UserRepository;
 import com.elearning.service.ClasseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -24,6 +23,9 @@ public class ClasseServiceImpl implements ClasseService {
     private ClasseRepository classeRepository;
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private EtudiantRepository etudiantRepository;
     @Autowired
     private MatiereRepository matiereRepository;
     @Autowired
@@ -79,9 +81,9 @@ public class ClasseServiceImpl implements ClasseService {
         return classeRepository.findById(id);
     }
 
-    public Optional<ClasseEntity> findById(long id) {
-        // TODO Auto-generated method stub
-        return classeRepository.findById(id);
+    @Override
+    public Optional<ClasseEntity> getClasseByEtudinat(Long etudiantId) {
+        return Optional.empty();
     }
 
 }

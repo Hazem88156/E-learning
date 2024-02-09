@@ -1,10 +1,15 @@
 package com.elearning.entities;
 
+import com.elearning.entities.users.ProfEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -15,7 +20,7 @@ public class CoursEntity extends MyEntity implements Serializable{
 	public CoursEntity() {
 	}
 
-	public CoursEntity(Long id, String nomCours, Date heureDebut, Date heureFin, UserEntity user, ClasseEntity classe, MatiereEntity matiere) {
+	public CoursEntity(Long id, String nomCours, Date heureDebut, Date heureFin, ProfEntity user, ClasseEntity classe, MatiereEntity matiere) {
 		this.id = id;
 		this.nomCours = nomCours;
 		this.heureDebut = heureDebut;
@@ -40,13 +45,35 @@ public class CoursEntity extends MyEntity implements Serializable{
 
 	@ManyToOne
 	@JoinColumn(name = "prof_id") // La colonne de jointure dans la table Employee
-	private UserEntity user;
+	private ProfEntity user;
 	@ManyToOne
 	@JoinColumn(name = "classe_id") // La colonne de jointure dans la table Employee
 	private ClasseEntity classe;
 	@ManyToOne
 	@JoinColumn(name = "matiere_id") // La colonne de jointure dans la table Employee
 	private MatiereEntity matiere;
+
+	@JsonIgnoreProperties("cours")
+	@JsonBackReference(value="document-cours")
+	@OneToMany(mappedBy="cour",fetch=FetchType.LAZY)
+	private List<DocumentEntity> documents;
+
+	@JsonIgnoreProperties("cours")
+	@JsonBackReference(value="reunion-cours")
+	@OneToMany(mappedBy="cour",fetch=FetchType.LAZY)
+	private List<ReunionEntity> reunions;
+
+	@JsonIgnoreProperties("cours")
+	@JsonBackReference(value="theme-cours")
+	@OneToMany(mappedBy="cour",fetch=FetchType.LAZY)
+	private List<ThemeEntity> themes;
+
+	@OneToMany(mappedBy="cour",fetch=FetchType.LAZY)
+	private List<VedioEntity> videos = new ArrayList<>();
+
+	private String coursFile;
+
+
 	public Long getId() {
 		return id;
 	}
@@ -61,11 +88,11 @@ public class CoursEntity extends MyEntity implements Serializable{
 		this.nomCours = nomCours;
 	}
 
-	public UserEntity getUser() {
+	public ProfEntity getUser() {
 		return user;
 	}
 
-	public void setUser(UserEntity user) {
+	public void setUser(ProfEntity user) {
 		this.user = user;
 	}
 
@@ -107,5 +134,45 @@ public class CoursEntity extends MyEntity implements Serializable{
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public List<DocumentEntity> getDocuments() {
+		return documents;
+	}
+
+	public void setDocuments(List<DocumentEntity> documents) {
+		this.documents = documents;
+	}
+
+	public List<VedioEntity> getVideos() {
+		return videos;
+	}
+
+	public void setVideos(List<VedioEntity> videos) {
+		this.videos = videos;
+	}
+
+	public List<ThemeEntity> getThemes() {
+		return themes;
+	}
+
+	public void setThemes(List<ThemeEntity> themes) {
+		this.themes = themes;
+	}
+
+	public List<ReunionEntity> getReunions() {
+		return reunions;
+	}
+
+	public void setReunions(List<ReunionEntity> reunions) {
+		this.reunions = reunions;
+	}
+
+	public String getCoursFile() {
+		return coursFile;
+	}
+
+	public void setCoursFile(String coursFile) {
+		this.coursFile = coursFile;
 	}
 }

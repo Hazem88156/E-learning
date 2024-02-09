@@ -3,18 +3,16 @@ package com.elearning.controller;
 import com.elearning.config.JwtTokenProvider;
 import com.elearning.domaine.Response;
 import com.elearning.dto.AuthenticateDTO;
-import com.elearning.dto.ClasseDTO;
 import com.elearning.dto.UserDTO;
 import com.elearning.dto.UserDetailDTO;
-import com.elearning.entities.ClasseEntity;
-import com.elearning.entities.RoleEntity;
-import com.elearning.entities.UserEntity;
+import com.elearning.dto.etudiant.EtudiantDTO;
+import com.elearning.entities.Role;
+import com.elearning.entities.users.UserEntity;
 import com.elearning.helper.ModelMapperConverter;
-import com.elearning.repository.UserRepository;
+import com.elearning.repository.users.UserRepository;
+import com.elearning.service.StorageService;
 import com.elearning.serviceImpl.CustomUserDetailsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JsonParseException;
 import org.springframework.http.HttpStatus;
@@ -25,10 +23,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletContext;
 import java.io.File;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,14 +38,15 @@ public class AuthController {
 
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    ServletContext context;
 
     @Autowired
     JwtTokenProvider jwtTokenProvider;
 
     @Autowired
     private CustomUserDetailsService userService;
+
+    @Autowired
+    private StorageService storageService;
 
     /*
      * login authentication
@@ -60,36 +57,22 @@ public class AuthController {
         AuthenticateDTO auth = new AuthenticateDTO();
         auth.setIsauthnenticate(false);
         try {
-            //String username = data.getEmail();
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                    data.getEmail(),
+                    data.getPassword()
+            );
+            authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+            UserEntity userEntity = this.userRepository.findByEmail(data.getEmail());
 
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(data.getEmail(), data.getPassword()));
-            String token = jwtTokenProvider.createToken(data.getEmail(), this.userRepository.findByEmail(data.getEmail()).getRoles());
+            String token = jwtTokenProvider.createToken(
+                    data.getEmail(),
+                    userEntity.getRoles()
+            );
 
             auth.setToken(token);
             auth.setUsername(data.getEmail());
             auth.setIsauthnenticate(true);
-            UserEntity user = this.userRepository.findByEmail(data.getEmail());
-
-            UserDTO userDto = new UserDTO();
-            userDto.setFirstName(user.getFirstName());
-
-            ClasseEntity classesEtudiant = user.getClassesEtudiant();
-            if (classesEtudiant != null) {
-                userDto.setClassesEtudiant(ModelMapperConverter.converToDTO(classesEtudiant, ClasseDTO.class));
-            }
-            System.out.println("classe" + classesEtudiant);
-            System.out.println(userDto.getClassesEtudiant());
-            userDto.setRoles(user.getRoles());
-            userDto.setStatus(user.getStatus());
-            userDto.setAddresse(user.getAddresse());
-            userDto.setLastName(user.getLastName());
-            userDto.setTelephone(user.getTelephone());
-            userDto.setUsername(user.getUsername());
-            userDto.setPassword(user.getPassword());
-            userDto.setEmail(user.getEmail());
-            userDto.setId(user.getId());
-            userDto.setNcin(user.getNcin());
-            userDto.setApropos(user.getApropos());
+            UserDTO userDto = ModelMapperConverter.converToDTO(userEntity, UserDTO.class);
             auth.setUser(userDto);
             auth.setMessage("ok");
             System.out.println("\n\n\nauth" + auth.getToken());
@@ -112,8 +95,9 @@ public class AuthController {
                                                @RequestParam("user") String user) throws JsonParseException, Exception {
         System.out.println("Ok .............");
         UserEntity users = new ObjectMapper().readValue(user, UserEntity.class);
-        addUserImage(file);
-        boolean isExit = new File(context.getRealPath("/Images/")).exists();
+        String newImgfile = storageService.addUserImage(file);
+        //String newImgfile = addUserImage(file);
+        /*boolean isExit = new File(context.getRealPath("/Images/")).exists();
         if (!isExit) {
             new File(context.getRealPath("/Images/")).mkdir();
             System.out.println("mkdir.............");
@@ -128,9 +112,7 @@ public class AuthController {
 
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
-
+        }*/
         users.setImgfile(newImgfile);
 
         UserEntity userExists = userService.findUserByLogin(users.getEmail());
@@ -151,37 +133,17 @@ public class AuthController {
         // System.out.println("hhhhhh" +file);
 
         if (file != null) {
-            String imgfile = file.getOriginalFilename();
-            String newImgfile = FilenameUtils.getBaseName(imgfile) + "." + FilenameUtils.getExtension(imgfile);
+//            String imgfile = file.getOriginalFilename();
+//            String newImgfile = FilenameUtils.getBaseName(imgfile) + "." + FilenameUtils.getExtension(imgfile);
+//            userr.setImgfile(newImgfile);
+            // String newImgfile = addUserImage(file);
+            String newImgfile = storageService.addUserImage(file);
             userr.setImgfile(newImgfile);
-            addUserImage(file);
-            userr.setId(id);
-            userService.update(userr);
-        } else {
-            userr.setId(id);
-            userService.update(userr);
         }
+        userr.setId(id);
+        userService.update(userr);
     }
 
-    @PutMapping("/updateEtudiant/{id}")
-    public void updateEtudiant(@PathVariable long id, @RequestParam(value = "file", required = false) MultipartFile file,
-                               @RequestParam("user") String user) throws Exception {
-        UserEntity userr = new ObjectMapper().readValue(user, UserEntity.class);
-        deleteEtudiantImage(userr);
-        // System.out.println("hhhhhh" +file);
-
-        if (file != null) {
-            String imgfile = file.getOriginalFilename();
-            String newImgfile = FilenameUtils.getBaseName(imgfile) + "." + FilenameUtils.getExtension(imgfile);
-            userr.setImgfile(newImgfile);
-            addUserImage(file);
-            userr.setId(id);
-            userService.updateEtudiant(userr);
-        } else {
-            userr.setId(id);
-            userService.updateEtudiant(userr);
-        }
-    }
 
     @PutMapping("/userstatus/{id}")
     public void active(@PathVariable long id,
@@ -195,34 +157,14 @@ public class AuthController {
     @GetMapping(path = "/Images/{id}")
     public byte[] getPhoto(@PathVariable("id") Long id) throws Exception {
         System.out.println("Get all Users Images...");
-        UserEntity User = userService.findById(id).get();
-        return Files.readAllBytes(Paths.get(context.getRealPath("/Images/") + User.getImgfile()));
-    }
-
-    private void addUserImage(MultipartFile file) {
-        boolean isExit = new File(context.getRealPath("/Images/")).exists();
-        if (!isExit) {
-            new File(context.getRealPath("/Images/")).mkdir();
-            System.out.println("mk dir Imagess.............");
-        }
-        String imgfile = file.getOriginalFilename();
-        String newFileName = FilenameUtils.getBaseName(imgfile) + "." + FilenameUtils.getExtension(imgfile);
-        File serverFile = new File(context.getRealPath("/Images/" + File.separator + newFileName));
-        try {
-
-            FileUtils.writeByteArrayToFile(serverFile, file.getBytes());
-
-        } catch (Exception e) {
-            System.out.println("Failed to Add Image User !!");
-        }
-
-
+        UserEntity user = userService.findById(id).get();
+        return Files.readAllBytes(storageService.buildUserImagePath(user.getImgfile()));
     }
 
     private void deleteUserImage(UserDetailDTO user) {
         System.out.println(" Delete User Image");
         try {
-            File file = new File(context.getRealPath("/ImgUsers/" + user.getImgfile()));
+            File file = storageService.buildUserImagePath(user.getImgfile()).toFile();
             System.out.println(user.getImgfile());
             if (file.delete()) {
                 System.out.println(file.getName() + " is deleted!");
@@ -237,7 +179,7 @@ public class AuthController {
     private void deleteEtudiantImage(UserEntity user) {
         System.out.println(" Delete User Image");
         try {
-            File file = new File(context.getRealPath("/ImgUsers/" + user.getImgfile()));
+            File file = storageService.buildUserImagePath(user.getImgfile()).toFile();
             System.out.println(user.getImgfile());
             if (file.delete()) {
                 System.out.println(file.getName() + " is deleted!");
@@ -271,23 +213,36 @@ public class AuthController {
     }
 
     @GetMapping("/userstatusroles/{status}/{roles}")
-    public List<UserDTO> getAllUser(@PathVariable String status, @PathVariable RoleEntity roles) {
+    public List<UserDTO> getAllUser(@PathVariable String status, @PathVariable Role roles) {
         System.out.println("\n\n\n -+"
                 + "select user avec condition roles et status");
         return userService.findByStatusAndRoles(status, roles);
     }
 
     @GetMapping("/usersss/{roles}")
-    public List<UserDTO> getAllUsers(@PathVariable RoleEntity roles) {
+    public List<UserDTO> getAllUsers(@PathVariable Role roles) {
         System.out.println("\n\n\n -+"
                 + "	get user");
         return userService.findByRoles(roles);
+    }
+
+    @GetMapping("/etudiant/{roles}")
+    public List<EtudiantDTO> getAllEtudiant(@PathVariable Role roles) {
+        System.out.println("\n\n\n -+"
+                + "	get user");
+        return userService.findByRolesEtudiant(roles);
     }
 
     @GetMapping("userdetail/{id}")
     public ResponseEntity<UserDTO> userDetail(@PathVariable Long id) {
         System.out.println(id);
         return ResponseEntity.of(userService.UserEntityById(id));
+    }
+
+    @GetMapping("etudiantdetail/{id}")
+    public ResponseEntity<EtudiantDTO> etudiantDetail(@PathVariable Long id) {
+        System.out.println(id);
+        return ResponseEntity.of(userService.EtudiantEntityById(id));
     }
 
     @DeleteMapping("deleteuser/{id}")

@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.elearning</groupId>
-	<artifactId>Elearning-1</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>Elearning</artifactId>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>Elearning</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>

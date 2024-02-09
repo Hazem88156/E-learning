@@ -1,27 +1,22 @@
 package com.elearning.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "vedios")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class VedioEntity extends MyEntity implements Serializable{
-	public VedioEntity(Long id, String vedioName, String vedioFile, CoursEntity cour) {
+	public VedioEntity(Long id, String vedioName, String vedioFile, CoursEntity cour,String recap) {
 		super();
 		this.id = id;
 		this.vedioName = vedioName;
 		this.vedioFile = vedioFile;
 		this.cour = cour;
+		this.recap=recap;
 	}
 	public VedioEntity() {
 		super();
@@ -33,6 +28,9 @@ public class VedioEntity extends MyEntity implements Serializable{
 	private Long id;
 	private String vedioName;
 	private String vedioFile;
+	@Column(columnDefinition = "TEXT")
+	private String recap;
+	@JsonIgnoreProperties("cours")
 	@ManyToOne(fetch=FetchType.EAGER)
 	private CoursEntity cour;
 	public Long getId() {
@@ -60,4 +58,11 @@ public class VedioEntity extends MyEntity implements Serializable{
 		this.cour = cour;
 	}
 
+	public String getRecap() {
+		return recap;
+	}
+
+	public void setRecap(String recap) {
+		this.recap = recap;
+	}
 }

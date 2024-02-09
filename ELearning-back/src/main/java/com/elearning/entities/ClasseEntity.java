@@ -16,11 +16,10 @@ public class ClasseEntity extends MyEntity implements Serializable {
 	@Column(unique = true, nullable = false)
     private String nomClasse;
 	private String section;
-	@OneToMany(mappedBy = "classe")
-	private List<CoursEntity> cours;
+
 	private String annee;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<MatiereEntity> matieres = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classe")
+    private List<CoursEntity> cours = new ArrayList<>();
 	public Long getId() {
 		return id;
 	}
@@ -39,12 +38,7 @@ public class ClasseEntity extends MyEntity implements Serializable {
 	public void setAnnee(String annee) {
 		this.annee = annee;
 	}
-	public List<MatiereEntity> getMatieres() {
-		return matieres;
-	}
-	public void setMatieres(List<MatiereEntity> matieres) {
-		this.matieres = matieres;
-	}
+
 	public ClasseEntity() {
 		super();
 	}

@@ -1,26 +1,21 @@
 package com.elearning.entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "question")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class QuestionEntity extends MyEntity implements Serializable{
-	
+
+	public QuestionEntity(Long id, String question, String response1, String response2, String response3, String correct, LevelEntity level) {
+		this.id = id;
+		this.question = question;
+		this.response1 = response1;
+		this.response2 = response2;
+		this.response3 = response3;
+		this.correct = correct;
+		this.level = level;
+	}
 	
 	
 
@@ -29,29 +24,25 @@ public class QuestionEntity extends MyEntity implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public QuestionEntity(Long id, String questionText, ExamenEntity examen, List<OptionEntity> options,
-			String explanation) {
-		super();
-		this.id = id;
-		this.questionText = questionText;
-		this.examen = examen;
-		this.options = options;
-		this.explanation = explanation;
-	}
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String questionText;
-	@JsonIgnore
-	 @ManyToOne()
-	 @JoinColumn(name = "examen")
-	 private ExamenEntity examen;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "question_id")
-    private List<OptionEntity> options;
+	private String question;
 
-    private String explanation;
+	private String response1;
+
+	private String response2;
+
+	private String response3;
+
+
+
+	private String correct;
+
+	@ManyToOne
+	private LevelEntity level;
 
 	public Long getId() {
 		return id;
@@ -61,36 +52,53 @@ public class QuestionEntity extends MyEntity implements Serializable{
 		this.id = id;
 	}
 
-	public String getQuestionText() {
-		return questionText;
+	public String getQuestion() {
+		return question;
 	}
 
-	public void setQuestionText(String questionText) {
-		this.questionText = questionText;
+	public void setQuestion(String question) {
+		this.question = question;
 	}
 
-	public List<OptionEntity> getOptions() {
-		return options;
+	public String getResponse1() {
+		return response1;
 	}
 
-	public void setOptions(List<OptionEntity> options) {
-		this.options = options;
+	public void setResponse1(String response1) {
+		this.response1 = response1;
 	}
 
-	public String getExplanation() {
-		return explanation;
+	public String getResponse2() {
+		return response2;
 	}
 
-	public void setExplanation(String explanation) {
-		this.explanation = explanation;
+	public void setResponse2(String response2) {
+		this.response2 = response2;
 	}
 
-	public ExamenEntity getExamen() {
-		return examen;
+	public String getResponse3() {
+		return response3;
 	}
 
-	public void setExamen(ExamenEntity examen) {
-		this.examen = examen;
+	public void setResponse3(String response3) {
+		this.response3 = response3;
 	}
+
+	public String getCorrect() {
+		return correct;
+	}
+
+	public void setCorrect(String correct) {
+		this.correct = correct;
+	}
+
+	public LevelEntity getLevel() {
+		return level;
+	}
+
+	public void setLevel(LevelEntity level) {
+		this.level = level;
+	}
+
 
 }

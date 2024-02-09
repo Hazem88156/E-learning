@@ -4,6 +4,7 @@ public class AuthBody {
 	
 	private String email;
     private String password;
+
 	public String getEmail() {
 		return email;
 	}
@@ -16,6 +17,7 @@ public class AuthBody {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-    
+
+
 
 }

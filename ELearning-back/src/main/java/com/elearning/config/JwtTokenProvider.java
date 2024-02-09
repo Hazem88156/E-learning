@@ -1,11 +1,11 @@
 package com.elearning.config;
 
-import java.util.Base64;
-import java.util.Date;
-
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
-
+import com.elearning.dto.UserDTO;
+import com.elearning.entities.Role;
+import com.elearning.entities.users.UserEntity;
+import com.elearning.helper.ModelMapperConverter;
+import com.elearning.serviceImpl.CustomUserDetailsService;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,15 +13,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import com.elearning.entities.RoleEntity;
-import com.elearning.serviceImpl.CustomUserDetailsService;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.UnsupportedJwtException;
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Base64;
+import java.util.Date;
 
 @Component
 public class JwtTokenProvider {
@@ -42,9 +37,10 @@ public class JwtTokenProvider {
     	
     }
     
-    public String createToken(String username, RoleEntity set) {
+    public String createToken(String username, Role set) {
         Claims claims = Jwts.claims().setSubject(username);
-        claims.put("user", userDetailsService.findUserByLogin(username));
+        UserEntity userEntity = userDetailsService.findUserByLogin(username);
+        claims.put("user", ModelMapperConverter.converToDTO(userEntity, UserDTO.class));
         claims.put("roles", set);
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);

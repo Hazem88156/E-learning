@@ -1,9 +1,11 @@
 package com.elearning.dto;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
 import java.util.Date;
+
 
 
 public class CoursDTO extends MyDTO implements Serializable{
@@ -22,6 +24,11 @@ public class CoursDTO extends MyDTO implements Serializable{
 	private UserDTO user;
 	private ClasseDTO classe;
 	private MatiereDTO matiere;
+
+	private String coursFile;
+
+
+
 
 	public Long getId() {
 		return id;
@@ -83,5 +90,12 @@ public class CoursDTO extends MyDTO implements Serializable{
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getCoursFile() {
+		return coursFile;
+	}
+	public void setCoursFile(String coursFile) {
+		this.coursFile = coursFile;
 	}
 }

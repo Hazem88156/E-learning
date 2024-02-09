@@ -1,13 +1,11 @@
 package com.elearning.controller;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Optional;
-
-import javax.servlet.ServletContext;
-
+import com.elearning.dto.VideoDTO;
+import com.elearning.entities.VedioEntity;
+import com.elearning.helper.ModelMapperConverter;
+import com.elearning.service.StorageService;
+import com.elearning.serviceImpl.VedioService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,22 +13,14 @@ import org.springframework.boot.json.JsonParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.elearning.dto.DocumentDTO;
-import com.elearning.dto.VideoDTO;
-import com.elearning.entities.DocumentEntity;
-import com.elearning.entities.VedioEntity;
-import com.elearning.helper.ModelMapperConverter;
-import com.elearning.serviceImpl.VedioService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.servlet.ServletContext;
+import java.io.File;
+import java.nio.file.Files;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin()
@@ -41,13 +31,17 @@ public class VedioController {
 	@Autowired
 	private ModelMapperConverter modelMapperConverter;
 	@Autowired  ServletContext context;
+	@Autowired
+	private StorageService storageService;
 	@PostMapping("/vedios")
-	 public ResponseEntity<VedioEntity> createVedio (@RequestParam("file") MultipartFile file,
-			 @RequestParam("vedio") String vedio) throws JsonParseException , Exception
-	 {
+	 public ResponseEntity<VedioEntity> createVedio (
+			 @RequestParam("file") MultipartFile file,
+			 @RequestParam("vedio") String vedio
+	) throws JsonParseException , Exception {
 		 System.out.println("Ok .............");
      VedioEntity vedios = new ObjectMapper().readValue(vedio, VedioEntity.class);
-     addDocumentfile(file);
+	 String newVedioFile = storageService.addVideoFile(file);
+     /*addDocumentfile(file);
      boolean isExit = new File(context.getRealPath("/Vedios/")).exists();
      if (!isExit)
      {
@@ -65,7 +59,7 @@ public class VedioController {
      	 
      }catch(Exception e) {
      	e.printStackTrace();
-     }
+     }*/
 
      
      vedios.setVedioFile(newVedioFile);
@@ -75,7 +69,7 @@ public class VedioController {
 	 }
 	
 	
-	 private void addDocumentfile(MultipartFile file)
+	 private void addVediofile(MultipartFile file)
 	    {
 	    	boolean isExit = new File(context.getRealPath("/Vedios/")).exists();
 		    if (!isExit)
@@ -105,26 +99,26 @@ public class VedioController {
 
 
 @GetMapping("vediodetail/{id}")
-public Optional<VedioEntity> vedioDetail(@PathVariable Long id) {
+public Optional<VideoDTO> vedioDetail(@PathVariable Long id) {
 	  System.out.println(id);
-	  Optional<VedioEntity> vedio = vedioService.vediofindById(id);
+	  Optional<VideoDTO> vedio = vedioService.vediofindById(id);
       return vedio;
   }
 @GetMapping(path="/Vedio/{id}")
 public ResponseEntity<byte[]> getVedio(@PathVariable("id") Long id) throws Exception{
 	 System.out.println("Get all Vedio ");
-	 VedioEntity Vedio   =vedioService.vediofindById(id).get();
-	 byte[] bytes = Files.readAllBytes(Paths.get(context.getRealPath("/Vedios/")+Vedio.getVedioFile()));
+	 VideoDTO Vedio   =vedioService.vediofindById(id).get();
+	 byte[] bytes = Files.readAllBytes(storageService.buildVideoFile(Vedio.getVedioFile()));
 	 return ResponseEntity
 			 .status(HttpStatus.OK)
 			 .contentType(MediaType.APPLICATION_OCTET_STREAM)
 			 .body(bytes);
 }
-/*@GetMapping("/vedio/{userId}")
-public ResponseEntity<List<VedioEntity>> getVediosByProfesseur(@PathVariable Long userId) {
-    List<VedioEntity> vedios = vedioService.getVediosByUser(userId);
+@GetMapping("/vedio/{userId}")
+public ResponseEntity<List<VideoDTO>> getVediosByProfesseur(@PathVariable Long userId) {
+    List<VideoDTO> vedios = vedioService.getVideoByUser(userId);
     return ResponseEntity.ok(vedios);
-}*/
+}
  
 /*@GetMapping("/vedios/cours/{courId}")
  public ResponseEntity<List<VideoDTO>> getVediosByCours(@PathVariable Long courId) {
@@ -135,5 +129,40 @@ public ResponseEntity<List<VedioEntity>> getVediosByProfesseur(@PathVariable Lon
     return ResponseEntity.ok(vedio);
  }*/
 
+	@PutMapping("/video/{id}")
+	public void update(@PathVariable long id, @RequestParam(value = "file", required = false) MultipartFile file,
+					   @RequestParam("video") String video) throws Exception {
+		VedioEntity videos = new ObjectMapper().readValue(video, VedioEntity.class);
+		deleteVideoFile(videos);
+		// System.out.println("hhhhhh" +file);
 
+		if (file != null) {
+//            String imgfile = file.getOriginalFilename();
+//            String newImgfile = FilenameUtils.getBaseName(imgfile) + "." + FilenameUtils.getExtension(imgfile);
+//            userr.setImgfile(newImgfile);
+			// String newImgfile = addUserImage(file);
+			String newVideofile = storageService.addVideoFile(file);
+			videos.setVedioFile(newVideofile);
+		}
+		videos.setId(id);
+		vedioService.update(videos);
+	}
+	private void deleteVideoFile(VedioEntity video) {
+		System.out.println(" Delete Video ");
+		try {
+			File file = storageService.buildUserImagePath(video.getVedioFile()).toFile();
+			System.out.println(video.getVedioFile());
+			if (file.delete()) {
+				System.out.println(file.getName() + " is deleted!");
+			} else {
+				System.out.println("Delete operation is failed.");
+			}
+		} catch (Exception e) {
+			System.out.println("Failed to Delete document !!");
+		}
+	}
+	@DeleteMapping("/video/{id}")
+	public void deleteVideos(@PathVariable Long id) {
+		vedioService.deleteVedio(id);
+	}
 }

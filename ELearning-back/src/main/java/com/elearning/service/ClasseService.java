@@ -13,4 +13,6 @@ public interface ClasseService {
 	public Optional<ClasseDTO> updateClasse(ClasseDTO classe);
 	public void deleteClasse(Long id);
 	public Optional<ClasseEntity> findById(Long id);
+
+	public Optional<ClasseEntity> getClasseByEtudinat(Long etudiantId);
 }

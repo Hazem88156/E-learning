@@ -1,15 +1,14 @@
 package com.elearning.controller;
 
-import java.util.List;
-import java.util.Optional;
-
-import com.elearning.entities.ClasseEntity;
+import com.elearning.dto.MatiereDTO;
 import com.elearning.entities.MatiereEntity;
+import com.elearning.service.MatiereService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.elearning.dto.MatiereDTO;
-import com.elearning.service.MatiereService;
+
+import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin()
 @RestController

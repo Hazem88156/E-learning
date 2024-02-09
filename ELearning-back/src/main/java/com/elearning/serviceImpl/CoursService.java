@@ -3,12 +3,14 @@ package com.elearning.serviceImpl;
 import com.elearning.dto.CoursDTO;
 import com.elearning.entities.ClasseEntity;
 import com.elearning.entities.CoursEntity;
-import com.elearning.entities.UserEntity;
+import com.elearning.entities.users.ProfEntity;
 import com.elearning.exceptions.CoursNameAlreadyExist;
 import com.elearning.helper.ModelMapperConverter;
 import com.elearning.repository.ClasseRepository;
 import com.elearning.repository.CoursRepository;
-import com.elearning.repository.UserRepository;
+import com.elearning.repository.users.EtudiantRepository;
+import com.elearning.repository.users.ProfRepository;
+import com.elearning.repository.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,10 @@ public class CoursService {
     private CoursRepository coursRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ProfRepository profRepository;
+    @Autowired
+    private EtudiantRepository etudiantRepository;
     @Autowired
     private ClasseRepository classeRepository;
 
@@ -52,6 +58,9 @@ public class CoursService {
         c.setHeureDebut(cour.getHeureDebut());
         c.setHeureFin(cour.getHeureFin());
         c.setUser(cour.getUser());
+        if (cour.getCoursFile()!= null) {
+            c.setCoursFile(cour.getCoursFile());
+        }
         c.setClasse(cour.getClasse());
         c.setMatiere(cour.getMatiere());
         c.setNomCours(cour.getNomCours());
@@ -68,16 +77,18 @@ public class CoursService {
 
     }
 
-    public List<CoursEntity> CoursByUser(Long userId) {
-        Optional<UserEntity> userOptional = userRepository.findById(userId);
-        if (userOptional.isPresent()) {
-            UserEntity user = userOptional.get();
-            return user.getCours();
-        }
 
+    public List<CoursDTO> CoursByUser(Long userId) {
+        Optional<ProfEntity> userOptional = profRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            ProfEntity prof = userOptional.get();
+            List<CoursDTO> coursDTOList = prof.getCours().stream()
+                    .map(coursEntity -> ModelMapperConverter.converToDTO(coursEntity, CoursDTO.class))
+                    .collect(Collectors.toList());
+            return coursDTOList;
+        }
         return Collections.emptyList();
     }
-
     public List<CoursEntity> CoursByClasse(Long classeId) {
         Optional<ClasseEntity> classeOptional = classeRepository.findById(classeId);
         if (classeOptional.isPresent()) {
@@ -108,6 +119,14 @@ public class CoursService {
         coursRepository.deleteById(id);
     }
 
+//    public List<CoursEntity> getCoursesForClass(Long classId) {
+//        List<CoursEntity> cours = coursRepository.findByClasseId(classId);
+//
+//        return st.stream()
+//                .flatMap(student -> student.getCourses().stream())
+//                .distinct()
+//                .collect(Collectors.toList());
+//    }
 }
 		
 

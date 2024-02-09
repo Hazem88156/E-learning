@@ -1,14 +1,10 @@
 package com.elearning.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity
@@ -23,17 +19,21 @@ public class ReunionEntity  extends MyEntity implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ReunionEntity(Long id, String reunionName, String createur) {
+	public ReunionEntity(Long id, String reunionName) {
 		super();
 		this.id = id;
 		this.reunionName = reunionName;
-		this.createur = createur;
+
 	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String reunionName;
-	private String createur;
+
+	@JsonIgnoreProperties("cours")
+	@ManyToOne(fetch=FetchType.EAGER)
+	private CoursEntity cour;
+
 	public Long getId() {
 		return id;
 	}
@@ -46,12 +46,13 @@ public class ReunionEntity  extends MyEntity implements Serializable{
 	public void setReunionName(String reunionName) {
 		this.reunionName = reunionName;
 	}
-	public String getCreateur() {
-		return createur;
+
+
+	public CoursEntity getCour() {
+		return cour;
 	}
-	public void setCreateur(String createur) {
-		this.createur = createur;
+
+	public void setCour(CoursEntity cour) {
+		this.cour = cour;
 	}
-		
-	
 }
